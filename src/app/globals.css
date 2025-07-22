@@ -1,26 +1,211 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-primary: #70cbff;
+  --color-secondary: #2C3E50;
+  --color-light: #ffffff;
+  --color-dark: #212529;
+  --color-text-on-primary: #333333;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Custom color utilities */
+@layer utilities {
+  .text-primary {
+    color: var(--color-primary);
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  .text-secondary {
+    color: var(--color-secondary);
+  }
+
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+
+  .bg-secondary {
+    background-color: var(--color-secondary);
+  }
+
+  .border-primary {
+    border-color: var(--color-primary);
+  }
+
+  .border-secondary {
+    border-color: var(--color-secondary);
+  }
+
+  .text-on-primary {
+    color: var(--color-text-on-primary);
   }
 }
 
+/* Font family utilities */
+@layer utilities {
+  .font-montserrat {
+    font-family: var(--font-montserrat), sans-serif;
+  }
+
+  .font-lato {
+    font-family: var(--font-lato), sans-serif;
+  }
+}
+
+/* Custom styles */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-lato), sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-montserrat), sans-serif;
+  font-weight: 700;
+}
+
+/* Smooth scrolling for navigation */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Portfolio item hover effects */
+.portfolio-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.portfolio-item-caption {
+  background-color: rgba(112, 203, 255, 0.9);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.portfolio-item:hover .portfolio-item-caption {
+  opacity: 1;
+}
+
+/* Button hover animations */
+@layer components {
+  .btn-animated {
+    @apply transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg;
+  }
+
+  .btn-primary-animated {
+    @apply bg-primary transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110;
+    color: var(--color-text-on-primary);
+  }
+
+  .btn-secondary-animated {
+    @apply bg-secondary text-white transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110;
+  }
+
+  .btn-social-animated {
+    @apply transition-all duration-300 ease-in-out transform hover:scale-110 hover:shadow-lg hover:-translate-y-1;
+  }
+
+  .nav-link-animated {
+    @apply transition-all duration-300 ease-in-out hover:scale-105 hover:text-primary;
+  }
+
+  .mobile-menu-btn-animated {
+    @apply transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-3 hover:shadow-md;
+    background-color: var(--color-primary);
+    color: var(--color-text-on-primary);
+  }
+}
+
+/* Custom button styles */
+.btn-outline-light {
+  @apply border border-white text-white hover:bg-white hover:text-gray-900 transition-all duration-300 transform hover:scale-105 hover:shadow-lg;
+}
+
+.btn-social {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Skills badges styling */
+.skills-section img {
+  margin: 0.25rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.skills-section img:hover {
+  transform: scale(1.05);
+}
+
+/* Modal styling */
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+/* Navigation hover effects */
+.nav-item-hover {
+  @apply relative transition-all duration-300 ease-in-out;
+}
+
+.nav-item-hover::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+  transition: all 0.3s ease-in-out;
+  transform: translateX(-50%);
+}
+
+.nav-item-hover:hover::after {
+  width: 100%;
+}
+
+/* Pulse animation for CTA buttons */
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(112, 203, 255, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 0 10px rgba(112, 203, 255, 0);
+  }
+}
+
+.btn-pulse {
+  animation: pulse-glow 2s infinite;
+}
+
+/* Bounce animation for scroll-to-top */
+@keyframes bounce {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-10px);
+  }
+
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.btn-bounce:hover {
+  animation: bounce 1s;
 }
