@@ -17,11 +17,12 @@ const Footer = () => {
       icon: Twitter,
       label: 'Twitter',
     },
-    {
-      href: 'https://xosnos.medium.com/',
-      icon: Computer, // Using Computer as placeholder for Medium
-      label: 'Medium',
-    },
+    // Temporarily hidden
+    // {
+    //   href: 'https://xosnos.medium.com/',
+    //   icon: Computer, // Using Computer as placeholder for Medium
+    //   label: 'Medium',
+    // },
   ];
 
   return (

@@ -6,10 +6,31 @@ import { Menu, X } from 'lucide-react';
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+
+      // Check which section is currently in view
+      const sections = ['portfolio', 'about', 'education', 'skills', 'contact'];
+      const scrollPosition = window.scrollY + 100; // Offset for navbar height
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+
+      // If we're at the top, clear active section
+      if (window.scrollY < 100) {
+        setActiveSection('');
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -39,15 +60,20 @@ const Navigation = () => {
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex space-x-8">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="text-white font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded nav-item-hover nav-link-animated"
-              >
-                {item.label}
-              </a>
-            ))}
+            {navItems.map((item) => {
+              const isActive = activeSection === item.href.slice(1); // Remove # from href
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className={`text-white font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded nav-item-hover nav-link-animated ${
+                    isActive ? 'text-primary' : ''
+                  }`}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
           </div>
 
           {/* Mobile Menu Button */}

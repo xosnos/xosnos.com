@@ -107,8 +107,14 @@ const Portfolio = () => {
 
       {/* Modal */}
       {selectedItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay">
-          <div className="bg-white rounded-lg max-w-4xl max-h-[90vh] overflow-y-auto">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay"
+          onClick={() => setSelectedItem(null)}
+        >
+          <div
+            className="bg-white rounded-lg max-w-4xl max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* Modal Header */}
             <div className="flex justify-end p-4 border-b">
               <button
@@ -169,15 +175,7 @@ const Portfolio = () => {
                     Repository
                   </a>
                 )}
-                {!selectedItem.demoUrl && !selectedItem.repoUrl && (
-                  <button
-                    onClick={() => setSelectedItem(null)}
-                    className="bg-gray-500 text-white px-8 py-3 rounded-full font-montserrat font-bold uppercase tracking-wider btn-animated flex items-center justify-center gap-2 mx-auto"
-                  >
-                    <X className="w-5 h-5" />
-                    Close Project
-                  </button>
-                )}
+
               </div>
             </div>
           </div>

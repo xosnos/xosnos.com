@@ -19,7 +19,7 @@ const educationItems: EducationItem[] = [
     id: 'ekhs',
     name: 'East Kentwood High School',
     shortName: 'East Kentwood',
-    image: '/assets/img/schools/ekhs.png',
+    image: '/assets/img/schools/ekhs.svg',
     courses: [
       'AP Computer Science',
       'AP Statistics',
@@ -43,7 +43,7 @@ const educationItems: EducationItem[] = [
     id: 'umich',
     name: 'University of Michigan',
     shortName: 'University of Michigan',
-    image: '/assets/img/schools/umich.png',
+    image: '/assets/img/schools/umich.svg',
     courses: [
       'EECS 481: Software Engineering',
       'EECS 497: Human-Centered Software Design and Development',
@@ -128,8 +128,14 @@ const Education = () => {
 
       {/* Modal */}
       {selectedItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay">
-          <div className="bg-white rounded-lg max-w-4xl max-h-[90vh] overflow-y-auto">
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay"
+          onClick={() => setSelectedItem(null)}
+        >
+          <div 
+            className="bg-white rounded-lg max-w-4xl max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* Modal Header */}
             <div className="flex justify-end p-4 border-b">
               <button
@@ -155,7 +161,7 @@ const Education = () => {
               </div>
 
               <Image
-                src={selectedItem.image}
+                src={selectedItem.id === 'stay-tuned' ? selectedItem.image : `/assets/img/schools/${selectedItem.id}.png`}
                 alt={selectedItem.name}
                 width={400}
                 height={300}
@@ -209,16 +215,7 @@ const Education = () => {
                 </div>
               )}
 
-              {/* Close Button */}
-              <div className="mt-8">
-                <button
-                  onClick={() => setSelectedItem(null)}
-                  className="px-8 py-3 rounded-full font-montserrat font-bold uppercase tracking-wider btn-secondary-animated flex items-center justify-center gap-2 mx-auto"
-                >
-                  <X className="w-5 h-5" />
-                  Close School
-                </button>
-              </div>
+
             </div>
           </div>
         </div>
