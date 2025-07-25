@@ -99,7 +99,7 @@ const Education = () => {
 
         {/* Education Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {educationItems.map((item) => (
+          {educationItems.filter(item => item.id !== 'stay-tuned').map((item) => (
             <div
               key={item.id}
               className="portfolio-item cursor-pointer group btn-animated"
@@ -128,11 +128,11 @@ const Education = () => {
 
       {/* Modal */}
       {selectedItem && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay"
           onClick={() => setSelectedItem(null)}
         >
-          <div 
+          <div
             className="bg-white rounded-lg max-w-4xl max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
