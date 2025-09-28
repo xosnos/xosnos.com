@@ -13,7 +13,7 @@ const Navigation = () => {
       setIsScrolled(window.scrollY > 50);
 
       // Check which section is currently in view
-      const sections = ['portfolio', 'about', 'spotify', 'education', 'skills', 'contact'];
+      const sections = ['portfolio', 'about', 'education', 'skills', 'contact'];
       const scrollPosition = window.scrollY + 100; // Offset for navbar height
 
       for (const section of sections) {
@@ -40,7 +40,6 @@ const Navigation = () => {
   const navItems = [
     { href: '#portfolio', label: 'Portfolio' },
     { href: '#about', label: 'About' },
-    { href: '#spotify', label: 'Spotify' },
     { href: '#education', label: 'Education' },
     { href: '#skills', label: 'Skills' },
     { href: '#contact', label: 'Contact' },

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import SpotifyPlayer from '@/components/SpotifyPlayer';
 import { Sparkles, Rocket } from 'lucide-react';
 
 const Hero = () => {
@@ -38,6 +39,11 @@ const Hero = () => {
             <span>Hello Universe</span>
             <Rocket className="w-6 h-6" />
           </h2>
+        </div>
+
+        {/* Spotify Player */}
+        <div className="mt-12">
+        <SpotifyPlayer />
         </div>
       </div>
     </header>

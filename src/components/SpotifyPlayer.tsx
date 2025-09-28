@@ -120,7 +120,7 @@ export default function SpotifyPlayer() {
       <div className="flex items-center space-x-2 mb-4">
         <Volume2 className="h-5 w-5 text-green-500" />
         <span className="text-sm font-semibold text-gray-600 uppercase tracking-wide">
-          Current Top Track
+          Current Top Track from Spotify
         </span>
       </div>
 
