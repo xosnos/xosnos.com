@@ -2,7 +2,9 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Code, X, ExternalLink, Github } from 'lucide-react';
+import { Code, X, ExternalLink } from 'lucide-react';
+import BrandIcon from './BrandIcon';
+import { brandIcons } from './brandIcons';
 
 interface PortfolioItem {
   id: string;
@@ -171,7 +173,7 @@ const Portfolio = () => {
                     rel="noopener noreferrer"
                     className="px-8 py-3 rounded-full font-montserrat font-bold uppercase tracking-wider btn-secondary-animated flex items-center justify-center gap-2"
                   >
-                    <Github className="w-5 h-5" />
+                    <BrandIcon icon={brandIcons.github} className="w-5 h-5" />
                     Repository
                   </a>
                 )}

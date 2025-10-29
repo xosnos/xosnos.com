@@ -1,26 +1,27 @@
-import { Github, Linkedin, Twitter, Computer } from 'lucide-react';
+import BrandIcon from './BrandIcon';
+import { brandIcons } from './brandIcons';
 
 const Footer = () => {
   const socialLinks = [
     {
       href: 'https://github.com/xosnos/',
-      icon: Github,
+      icon: brandIcons.github,
       label: 'GitHub',
     },
     {
       href: 'https://www.linkedin.com/in/xosnos/',
-      icon: Linkedin,
+      icon: brandIcons.linkedin,
       label: 'LinkedIn',
     },
     {
-      href: 'https://twitter.com/xosnos',
-      icon: Twitter,
-      label: 'Twitter',
+      href: 'https://x.com/xosnos',
+      icon: brandIcons.x,
+      label: 'X',
     },
     // Temporarily hidden
     // {
     //   href: 'https://xosnos.medium.com/',
-    //   icon: Computer, // Using Computer as placeholder for Medium
+    //   icon: SOME_ICON,
     //   label: 'Medium',
     // },
   ];
@@ -37,9 +38,9 @@ const Footer = () => {
                 Location
               </h4>
               <p className="text-lg leading-relaxed">
-                <span>Grand Rapids, Michigan</span>
-                <br />
                 <span>San Jose, California</span>
+                <br />
+                <span>Grand Rapids, Michigan</span>
               </p>
             </div>
 
@@ -58,7 +59,7 @@ const Footer = () => {
                     className="btn-social btn-outline-light btn-social-animated"
                     aria-label={link.label}
                   >
-                    <link.icon className="w-5 h-5" />
+                    <BrandIcon icon={link.icon} className="w-5 h-5" title={link.label} />
                   </a>
                 ))}
               </div>
@@ -69,15 +70,10 @@ const Footer = () => {
               <h4 className="text-xl font-montserrat font-bold uppercase mb-4">
                 Credits & References
               </h4>
-              <div className="text-left max-w-xs mx-auto">
-                <ul className="space-y-1 text-sm">
-                  <li>Codecademy (Self-taught HTML, CSS, & JS)</li>
-                  <li>Bootstrap Studio & VSCode (Editors)</li>
-                  <li>Freelance Bootstrap (Theme)</li>
-                  <li className="flex items-center gap-1">
-                    My Mac Mini
-                    <Computer className="w-4 h-4" />
-                  </li>
+              <div className="max-w-xs mx-auto">
+                <ul className="space-y-1 text-lg">
+                  <li>Codecademy (Self-taught)</li>
+                  <li>My M4 Pro Mac Mini 🖥️</li>
                 </ul>
               </div>
             </div>
