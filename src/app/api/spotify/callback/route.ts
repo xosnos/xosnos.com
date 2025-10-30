@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-const SPOTIFY_TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
+import { exchangeCodeForTokens } from '../../../../lib/spotify';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -21,41 +20,8 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const client_id = process.env.SPOTIFY_CLIENT_ID;
-  const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-  const redirect_uri = `http://127.0.0.1:3000/api/spotify/callback`;
-
-  if (!client_id || !client_secret) {
-    return NextResponse.json(
-      { error: 'Missing Spotify credentials' },
-      { status: 500 }
-    );
-  }
-
   try {
-    const response = await fetch(SPOTIFY_TOKEN_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: `Basic ${Buffer.from(`${client_id}:${client_secret}`).toString('base64')}`,
-      },
-      body: new URLSearchParams({
-        grant_type: 'authorization_code',
-        code,
-        redirect_uri,
-      }),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Spotify token exchange error:', errorData);
-      return NextResponse.json(
-        { error: 'Failed to exchange code for tokens' },
-        { status: 500 }
-      );
-    }
-
-    const tokenData = await response.json();
+    const tokenData = await exchangeCodeForTokens(code);
     
     // Return tokens for manual copying to .env.local
     return NextResponse.json({
