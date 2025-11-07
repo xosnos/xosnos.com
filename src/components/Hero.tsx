@@ -4,8 +4,8 @@ import { Sparkles, Rocket } from 'lucide-react';
 
 const Hero = () => {
   return (
-    <header id="page-top" className="bg-primary text-gray-800 py-32 text-center">
-      <div className="container mx-auto px-4">
+    <header id="page-top" className="bg-primary text-gray-800 min-h-screen flex items-center text-center">
+      <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           {/* Profile Image */}
           <div className="mb-8">
