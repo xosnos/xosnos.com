@@ -17,9 +17,16 @@ interface PortfolioItem {
 
 const portfolioItems: PortfolioItem[] = [
   {
+    id: 'uvsa-midwest',
+    title: 'UVSA-Midwest App',
+    image: '/assets/img/portfolio/uvsamidwest.png',
+    description: 'UVSA-Midwest\'s official app helps to coordinate flagship events and keeps constituents up-to-date with personalized information during the year and conference-specific information for flagship events. Built with React Native, Expo and Firebase.',
+    demoUrl: 'https://app.uvsamidwest.org',
+  },
+  {
     id: 'almond-travel',
     title: 'Almond Travel',
-    image: '/assets/img/portfolio/almond-travel.svg',
+    image: '/assets/img/portfolio/almond-travel.png',
     description: 'Almond Travel is a website that makes traveling to America easier for tourists and immigrants. The process of going on a trip involves multiple steps, all of which require different apps and websites. Users must book flights on one platform, hotels on another, and information about restaurants and attractions involves painstaking research across multiple web sources. This project aims to bundle these steps into a seamless experience that is accessible and understandable for users of a variety of national origins.',
     demoUrl: 'https://almond-travel.xosnos.com/',
   },
@@ -33,7 +40,7 @@ const portfolioItems: PortfolioItem[] = [
   {
     id: 'jammming',
     title: 'jammming',
-    image: '/assets/img/portfolio/jammming.svg',
+    image: '/assets/img/portfolio/jammming.png',
     description: 'jammming is a front-end application to create super duper fast playlists and send them directly to your Spotify account.',
     demoUrl: 'https://jammming.xosnos.com/',
     repoUrl: 'https://github.com/xosnos/jammming',
@@ -52,12 +59,12 @@ const portfolioItems: PortfolioItem[] = [
     description: 'Flix is a Flixster clone mobile app that allows users to browse movies from the The Movie Database API.',
     repoUrl: 'https://github.com/xosnos/flixster',
   },
-  {
-    id: 'taro',
-    title: 'Taro',
-    image: '/assets/img/portfolio/taro.svg',
-    description: 'TBA',
-  },
+  // {
+  //   id: 'taro',
+  //   title: 'Taro',
+  //   image: '/assets/img/portfolio/taro.svg',
+  //   description: 'TBA',
+  // },
 ];
 
 const Portfolio = () => {
