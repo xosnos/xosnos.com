@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Steven Nguyen",
-    url: "https://xosnos.com",
+    url: "https://www.xosnos.com",
   },
   icons: {
     apple: "/assets/img/icon/apple-touch-icon.png",
