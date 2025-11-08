@@ -13,16 +13,16 @@ export interface SkillCategory {
  */
 export async function fetchSkillsFromReadme(): Promise<SkillCategory[]> {
   const README_URL = 'https://raw.githubusercontent.com/xosnos/xosnos/refs/heads/main/README.md';
-  
+
   try {
     const response = await fetch(README_URL, {
       next: { revalidate: 3600 } // Revalidate every hour
     });
-    
+
     if (!response.ok) {
       throw new Error(`Failed to fetch README: ${response.statusText}`);
     }
-    
+
     const markdown = await response.text();
     return parseSkillsFromMarkdown(markdown);
   } catch (error) {
@@ -36,30 +36,30 @@ export async function fetchSkillsFromReadme(): Promise<SkillCategory[]> {
  */
 function parseSkillsFromMarkdown(markdown: string): SkillCategory[] {
   const categories: SkillCategory[] = [];
-  
+
   // Split by headers (###) to find skill sections
   const sections = markdown.split(/^###\s+/m);
-  
+
   // Map of section title patterns to portfolio titles
   // Keys are patterns that should match the README header
   const categoryMap: Array<{ pattern: string | RegExp; title: string }> = [
-    { pattern: /⌨️\s*Programming\s*Languages/i, title: '⌨️ Languages' },
-    { pattern: /^Frontend$/i, title: 'Frontend' },
-    { pattern: /^Backend$/i, title: 'Backend' },
+    { pattern: /⌨️\s*Languages/i, title: '⌨️ Languages' },
+    { pattern: /🖥️\s*Frontend/i, title: '🖥️ Frontend' },
+    { pattern: /⚙️\s*Backend/i, title: '⚙️ Backend' },
     { pattern: /💽\s*Databases/i, title: '💽 Databases' },
-    { pattern: /🤖\s*Hosting/i, title: '🤖 Hosting / SaaS' },
-    { pattern: /🖼️\s*Frameworks/i, title: '🖼️ Frameworks, Platforms, and Libraries' },
-    { pattern: /💻\s*Servers/i, title: '💻 Servers' },
+    { pattern: /🤖\s*Hosting/i, title: '🤖 Hosting' },
+    { pattern: /🛠️\s*Tools/i, title: '🛠️ Tools' },
+    { pattern: /💻\s*DevOps/i, title: '💻 DevOps, Cloud, & Infrastructure' },
     { pattern: /🎨\s*Design/i, title: '🎨 Design' },
-    { pattern: /🛠️\s*Other/i, title: '🛠️ Other' },
+    { pattern: /🛠️\s*Organization/i, title: '🛠️ Organization' },
   ];
-  
+
   for (const section of sections) {
     const lines = section.split('\n');
     const headerLine = lines[0]?.trim();
-    
+
     if (!headerLine) continue;
-    
+
     // Check if this is a skill category we want to include
     let categoryTitle: string | undefined;
     for (const { pattern, title } of categoryMap) {
@@ -69,20 +69,20 @@ function parseSkillsFromMarkdown(markdown: string): SkillCategory[] {
         break;
       }
     }
-    
+
     if (!categoryTitle) continue;
-    
+
     // Extract badges from this section
     // Stop at the next section (starts with ###) or end of section
     const badges: Badge[] = [];
     const badgeRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
-    
+
     for (let i = 1; i < lines.length; i++) {
       const line = lines[i];
-      
+
       // Stop if we hit another header
       if (line.trim().startsWith('###')) break;
-      
+
       // Extract badges from this line
       // Reset regex lastIndex to avoid issues with global regex
       badgeRegex.lastIndex = 0;
@@ -90,14 +90,14 @@ function parseSkillsFromMarkdown(markdown: string): SkillCategory[] {
       while ((match = badgeRegex.exec(line)) !== null) {
         const alt = match[1] || '';
         const src = match[2];
-        
+
         // Only include shields.io badges (for-the-badge style)
         if (src.includes('shields.io') || src.includes('for-the-badge')) {
           badges.push({ src, alt });
         }
       }
     }
-    
+
     if (badges.length > 0) {
       categories.push({
         title: categoryTitle,
@@ -105,35 +105,35 @@ function parseSkillsFromMarkdown(markdown: string): SkillCategory[] {
       });
     }
   }
-  
+
   // Ensure consistent ordering
   const orderedCategories: SkillCategory[] = [];
   const order = [
     '⌨️ Languages',
-    'Frontend',
-    'Backend',
+    '🖥️ Frontend',
+    '⚙️ Backend',
     '💽 Databases',
-    '🤖 Hosting / SaaS',
-    '🖼️ Frameworks, Platforms, and Libraries',
-    '💻 Servers',
+    '🤖 Hosting',
+    '🛠️ Tools',
+    '💻 DevOps, & Infrastructure',
     '🎨 Design',
-    '🛠️ Other',
+    '🛠️ Organization',
   ];
-  
+
   for (const title of order) {
     const category = categories.find(c => c.title === title);
     if (category) {
       orderedCategories.push(category);
     }
   }
-  
+
   // Add any remaining categories not in the order list
   for (const category of categories) {
     if (!orderedCategories.find(c => c.title === category.title)) {
       orderedCategories.push(category);
     }
   }
-  
+
   return orderedCategories;
 }
 
