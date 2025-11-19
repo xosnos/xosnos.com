@@ -29,6 +29,7 @@ const portfolioItems: PortfolioItem[] = [
     image: '/assets/img/portfolio/almond-travel.png',
     description: 'Almond Travel is a website that makes traveling to America easier for tourists and immigrants. The process of going on a trip involves multiple steps, all of which require different apps and websites. Users must book flights on one platform, hotels on another, and information about restaurants and attractions involves painstaking research across multiple web sources. This project aims to bundle these steps into a seamless experience that is accessible and understandable for users of a variety of national origins.',
     demoUrl: 'https://almond-travel.xosnos.com/',
+    repoUrl: 'https://github.com/xosnos/almond-travel',
   },
   {
     id: 'rangr',
