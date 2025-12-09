@@ -72,20 +72,20 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Portfolio item hover effects */
-.portfolio-item {
+/* Project item hover effects */
+.project-item {
   position: relative;
   overflow: hidden;
   border-radius: 0.5rem;
 }
 
-.portfolio-item-caption {
+.project-item-caption {
   background-color: rgba(112, 203, 255, 0.9);
   opacity: 0;
   transition: all 0.3s ease;
 }
 
-.portfolio-item:hover .portfolio-item-caption {
+.project-item:hover .project-item-caption {
   opacity: 1;
 }
 
