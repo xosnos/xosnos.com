@@ -1,11 +1,12 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getBlogBySlug } from '@/data/blogs';
 
 export async function GET(
-  _request: Request,
-  { params }: { params: { slug: string } },
+  _request: NextRequest,
+  { params }: { params: Promise<{ slug: string }> },
 ) {
-  const post = getBlogBySlug(params.slug);
+  const { slug } = await params;
+  const post = getBlogBySlug(slug);
 
   if (!post || post.published === false) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
@@ -13,4 +14,5 @@ export async function GET(
 
   return NextResponse.json(post);
 }
+
 
