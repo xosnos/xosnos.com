@@ -13,7 +13,7 @@ const Navigation = () => {
       setIsScrolled(window.scrollY > 50);
 
       // Check which section is currently in view
-      const sections = ['portfolio', 'about', 'education', 'skills', 'contact'];
+      const sections = ['about', 'blogs', 'projects', 'experience', 'skills', 'education', 'contact'];
       const scrollPosition = window.scrollY + 100; // Offset for navbar height
 
       for (const section of sections) {
@@ -38,10 +38,12 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { href: '#portfolio', label: 'Portfolio' },
     { href: '#about', label: 'About' },
-    { href: '#education', label: 'Education' },
+    { href: '#blogs', label: 'Blog' },
+    { href: '#projects', label: 'Projects' },
+    { href: '#experience', label: 'Experience' },
     { href: '#skills', label: 'Skills' },
+    { href: '#education', label: 'Education' },
     { href: '#contact', label: 'Contact' },
   ];
 
@@ -59,16 +61,15 @@ const Navigation = () => {
           </a>
 
           {/* Desktop Menu */}
-          <div className="hidden lg:flex space-x-8">
+          <div className="hidden lg:flex space-x-4">
             {navItems.map((item) => {
               const isActive = activeSection === item.href.slice(1); // Remove # from href
               return (
                 <a
                   key={item.href}
                   href={item.href}
-                  className={`text-white font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded nav-item-hover nav-link-animated ${
-                    isActive ? 'text-primary' : ''
-                  }`}
+                  className={`text-white font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded nav-item-hover nav-link-animated ${isActive ? 'text-primary' : ''
+                    }`}
                 >
                   {item.label}
                 </a>

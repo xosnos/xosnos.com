@@ -41,7 +41,7 @@ const Hero = () => {
           </h2>
         </div>
 
-        {/* Spotify Player */}
+        {/* Now Playing */}
         <div className="mt-12">
         <SpotifyPlayer />
         </div>

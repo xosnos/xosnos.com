@@ -33,7 +33,7 @@
       
       // Closes responsive menu when a scroll trigger link is clicked
       for (var item of navbarItems) {
-        item.addEventListener('click', function (event) {
+        item.addEventListener('click', function () {
           collapse.hide();
         });
       }
