@@ -14,21 +14,29 @@ const Skills = async () => {
   }
 
   return (
-    <section id="skills" className="bg-primary text-gray-800 py-20">
+    <section id="skills" className="bg-white text-gray-800 py-20">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-montserrat font-bold uppercase flex items-center justify-center gap-4 mb-6 text-gray-800">
+          <h2 className="text-4xl font-montserrat font-bold uppercase flex items-center justify-center gap-4 mb-6 text-secondary">
             <Code className="w-8 h-8" />
-            <span>Skills</span>
+            <span>
+              <a
+                href="https://github.com/xosnos/xosnos/blob/main/README.md"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Skills
+              </a>
+            </span>
             <Code className="w-8 h-8" />
           </h2>
           <div className="flex items-center justify-center mb-8">
-            <div className="h-1 w-20 bg-gray-800"></div>
+            <div className="h-1 w-20 bg-secondary"></div>
             <div className="mx-4">
-              <div className="w-4 h-4 bg-gray-800"></div>
+              <div className="w-4 h-4 bg-secondary"></div>
             </div>
-            <div className="h-1 w-20 bg-gray-800"></div>
+            <div className="h-1 w-20 bg-secondary"></div>
           </div>
         </div>
 
@@ -66,17 +74,6 @@ const Skills = async () => {
                     </div>
                   ))
                 )}
-              </div>
-
-              <div className="text-center mt-8">
-                <a
-                  href="https://github.com/xosnos/xosnos/blob/main/README.md"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-800 hover:text-gray-600 underline transition-colors"
-                >
-                  Straight from my GitHub README
-                </a>
               </div>
             </div>
             <div className="xl:col-span-2"></div>

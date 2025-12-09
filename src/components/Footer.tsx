@@ -72,8 +72,9 @@ const Footer = () => {
               </h4>
               <div className="max-w-xs mx-auto">
                 <ul className="space-y-1 text-lg">
-                  <li>Codecademy (Self-taught)</li>
+                  <li>Codecademy (Self-taught) 🧠</li>
                   <li>My M4 Pro Mac Mini 🖥️</li>
+                  <li>Cursor & Claude Code 🤖</li>
                 </ul>
               </div>
             </div>
@@ -82,7 +83,7 @@ const Footer = () => {
       </div>
 
       {/* Copyright */}
-      <div className="bg-gray-800 py-4">
+      <div className="bg-secondary py-4">
         <div className="container mx-auto px-4 text-center">
           <small className="text-gray-300">
             Copyright © xosnos {new Date().getFullYear()}

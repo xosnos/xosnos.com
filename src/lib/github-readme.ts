@@ -115,7 +115,7 @@ function parseSkillsFromMarkdown(markdown: string): SkillCategory[] {
     '💽 Databases',
     '🤖 Hosting',
     '🛠️ Tools',
-    '💻 DevOps, & Infrastructure',
+    '💻 DevOps, Cloud, & Infrastructure',
     '🎨 Design',
     '🛠️ Organization',
   ];

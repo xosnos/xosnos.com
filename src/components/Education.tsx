@@ -79,7 +79,7 @@ const Education = () => {
   const [selectedItem, setSelectedItem] = useState<EducationItem | null>(null);
 
   return (
-    <section id="education" className="py-20">
+    <section id="education" className="py-20 bg-primary">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -102,7 +102,7 @@ const Education = () => {
           {educationItems.filter(item => item.id !== 'stay-tuned').map((item) => (
             <div
               key={item.id}
-              className="portfolio-item cursor-pointer group btn-animated"
+              className="project-item cursor-pointer group btn-animated"
               onClick={() => setSelectedItem(item)}
             >
               <div className="relative">
@@ -113,7 +113,7 @@ const Education = () => {
                   height={300}
                   className="w-full h-64 object-contain bg-white rounded-lg border"
                 />
-                <div className="portfolio-item-caption absolute inset-0 flex items-center justify-center rounded-lg">
+                <div className="project-item-caption absolute inset-0 flex items-center justify-center rounded-lg">
                   {item.id === 'stay-tuned' ? (
                     <HelpCircle className="w-16 h-16 text-white" />
                   ) : (
