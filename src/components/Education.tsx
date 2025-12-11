@@ -19,7 +19,7 @@ const educationItems: EducationItem[] = [
     id: 'ekhs',
     name: 'East Kentwood High School',
     shortName: 'East Kentwood',
-    image: '/assets/img/schools/ekhs.svg',
+    image: '/assets/img/schools/ekhs-logo.png',
     courses: [
       'AP Computer Science',
       'AP Statistics',
@@ -43,7 +43,7 @@ const educationItems: EducationItem[] = [
     id: 'umich',
     name: 'University of Michigan',
     shortName: 'University of Michigan',
-    image: '/assets/img/schools/umich.svg',
+    image: '/assets/img/schools/umich-logo.png',
     courses: [
       'EECS 481: Software Engineering',
       'EECS 497: Human-Centered Software Design and Development',
@@ -98,7 +98,7 @@ const Education = () => {
         </div>
 
         {/* Education Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {educationItems.filter(item => item.id !== 'stay-tuned').map((item) => (
             <div
               key={item.id}
@@ -111,7 +111,7 @@ const Education = () => {
                   alt={item.name}
                   width={400}
                   height={300}
-                  className="w-full h-64 object-contain bg-white rounded-lg border"
+                  className="w-full h-64 object-cover rounded-lg"
                 />
                 <div className="project-item-caption absolute inset-0 flex items-center justify-center rounded-lg">
                   {item.id === 'stay-tuned' ? (
