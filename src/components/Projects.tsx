@@ -13,6 +13,7 @@ interface ProjectItem {
   description: string;
   demoUrl?: string;
   repoUrl?: string;
+  published?: boolean;
 }
 
 const projectItems: ProjectItem[] = [
@@ -22,6 +23,7 @@ const projectItems: ProjectItem[] = [
     image: '/assets/img/projects/uvsamidwest.png',
     description: 'UVSA-Midwest\'s official app helps to coordinate flagship events and keeps constituents up-to-date with personalized information during the year and conference-specific information for flagship events. Built with React Native, Expo and Firebase.',
     demoUrl: 'https://app.uvsamidwest.org',
+    published: true,
   },
   {
     id: 'vector',
@@ -29,6 +31,7 @@ const projectItems: ProjectItem[] = [
     image: '/assets/img/projects/vector.png',
     description: 'Vector is your AI career agent. Capture roles, tailor your materials with local-first AI, score them like an ATS, and keep your portfolio & analytics in sync—without leaving one workspace.',
     demoUrl: 'https://vector.xosnos.com/',
+    published: true,
   },
   {
     id: 'almond-travel',
@@ -37,6 +40,7 @@ const projectItems: ProjectItem[] = [
     description: 'Almond Travel is a website that makes traveling to America easier for tourists and immigrants. The process of going on a trip involves multiple steps, all of which require different apps and websites. Users must book flights on one platform, hotels on another, and information about restaurants and attractions involves painstaking research across multiple web sources. This project aims to bundle these steps into a seamless experience that is accessible and understandable for users of a variety of national origins.',
     demoUrl: 'https://almond-travel.xosnos.com/',
     repoUrl: 'https://github.com/xosnos/almond-travel',
+    published: true,
   },
   {
     id: 'jammming',
@@ -45,6 +49,7 @@ const projectItems: ProjectItem[] = [
     description: 'jammming is a front-end application to create super duper fast playlists and send them directly to your Spotify account.',
     demoUrl: 'https://jammming.xosnos.com/',
     repoUrl: 'https://github.com/xosnos/jammming',
+    published: true,
   },
   {
     id: 'rangr',
@@ -52,6 +57,7 @@ const projectItems: ProjectItem[] = [
     image: '/assets/img/projects/rangr.svg',
     description: 'RANGR is a mobile golf swing tracker that uses computer vision to analyze ball movements to provide metrics and insights. It\'s as simple as set, swing, track! Developed by EECS 441\'s ACE development team.',
     repoUrl: 'https://github.com/xosnos/ACE',
+    published: false,
   },
 
   {
@@ -60,6 +66,7 @@ const projectItems: ProjectItem[] = [
     image: '/assets/img/projects/parstagram.svg',
     description: 'An Instagram clone with a custom Parse backend that allows a user to post photos, view a global photos feed, and add comments!',
     repoUrl: 'https://github.com/xosnos/parstagram',
+    published: false,
   },
   {
     id: 'flix',
@@ -67,12 +74,18 @@ const projectItems: ProjectItem[] = [
     image: '/assets/img/projects/flix.svg',
     description: 'Flix is a Flixster clone mobile app that allows users to browse movies from the The Movie Database API.',
     repoUrl: 'https://github.com/xosnos/flixster',
+    published: false,
   },
 
 ];
 
+function listPublishedProjects(): ProjectItem[] {
+  return projectItems.filter((project) => project.published !== false);
+}
+
 const Projects = () => {
   const [selectedItem, setSelectedItem] = useState<ProjectItem | null>(null);
+  const publishedProjects = listPublishedProjects();
 
   return (
     <section id="projects" className="py-20 bg-white">
@@ -94,8 +107,8 @@ const Projects = () => {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projectItems.map((item) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {publishedProjects.map((item) => (
             <div
               key={item.id}
               className="project-item cursor-pointer group btn-animated"
