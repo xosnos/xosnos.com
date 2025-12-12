@@ -20,7 +20,10 @@ const Hero = () => {
           </div>
 
           {/* Name */}
-          <h1 className="text-5xl md:text-6xl font-montserrat font-bold mb-4 text-gray-800">
+          <h1
+            className="text-5xl md:text-6xl font-montserrat font-bold mb-4 text-gray-800 md:title-banner-effect"
+            data-text="Steven Nguyen"
+          >
             Steven Nguyen
           </h1>
 
@@ -43,7 +46,7 @@ const Hero = () => {
 
         {/* Now Playing */}
         <div className="mt-12">
-        <SpotifyPlayer />
+          <SpotifyPlayer />
         </div>
       </div>
     </header>
