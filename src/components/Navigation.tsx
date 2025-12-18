@@ -2,13 +2,22 @@
 
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const pathname = usePathname();
+  const isHome = pathname === '/';
 
   useEffect(() => {
+    if (!isHome) {
+      setActiveSection('');
+      return;
+    }
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
@@ -35,51 +44,51 @@ const Navigation = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHome]);
 
   const navItems = [
-    { href: '#about', label: 'About' },
-    { href: '#blogs', label: 'Blog' },
-    { href: '#projects', label: 'Projects' },
-    { href: '#experience', label: 'Experience' },
-    { href: '#skills', label: 'Skills' },
-    { href: '#education', label: 'Education' },
-    { href: '#contact', label: 'Contact' },
+    { href: isHome ? '#about' : '/#about', label: 'About' },
+    { href: '/blogs', label: 'Blog' },
+    { href: '/projects', label: 'Projects' },
+    { href: isHome ? '#experience' : '/#experience', label: 'Experience' },
+    { href: isHome ? '#skills' : '/#skills', label: 'Skills' },
+    { href: isHome ? '#education' : '/#education', label: 'Education' },
+    { href: isHome ? '#contact' : '/#contact', label: 'Contact' },
   ];
 
   return (
-    <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-secondary shadow-lg' : 'bg-secondary'
+    <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${isScrolled || !isHome ? 'bg-secondary shadow-lg' : 'bg-secondary'
       }`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a
-            href="#page-top"
+          <Link
+            href="/"
             className="text-white font-montserrat font-bold text-xl uppercase tracking-wider nav-link-animated"
           >
             xosnos
-          </a>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex space-x-4">
             {navItems.map((item) => {
-              const isActive = activeSection === item.href.slice(1); // Remove # from href
+              const isActive = (isHome && activeSection === item.href.slice(1)) || pathname === item.href;
               return (
-                <a
+                <Link
                   key={item.href}
                   href={item.href}
                   className={`text-white font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded nav-item-hover nav-link-animated ${isActive ? 'text-primary' : ''
                     }`}
                 >
                   {item.label}
-                </a>
+                </Link>
               );
             })}
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 rounded mobile-menu-btn-animated text-on-primary"
+            className="lg:hidden p-2 rounded-sm mobile-menu-btn-animated text-on-primary"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle navigation"
           >
@@ -92,14 +101,14 @@ const Navigation = () => {
           <div className="lg:hidden bg-secondary border-t border-gray-600">
             <div className="py-4 space-y-2">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.href}
                   href={item.href}
-                  className="block text-white font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded nav-link-animated"
+                  className="block text-white font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded-sm nav-link-animated"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </div>
           </div>

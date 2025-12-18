@@ -27,8 +27,8 @@ const Blogs = async () => {
           <div className="max-w-3xl mx-auto text-center bg-primary rounded-lg p-10 border border-gray-200">
             <p className="text-gray-800 text-lg font-semibold">No posts yet.</p>
             <p className="text-gray-700 mt-3">
-              Add posts by editing <code className="bg-white px-2 py-1 rounded border">src/data/blogs.ts</code>.
-              API available at <code className="bg-white px-2 py-1 rounded border">/api/blogs</code>.
+              Add posts by editing <code className="bg-white px-2 py-1 rounded-sm border">src/data/blogs.ts</code>.
+              API available at <code className="bg-white px-2 py-1 rounded-sm border">/api/blogs</code>.
             </p>
           </div>
         ) : (
