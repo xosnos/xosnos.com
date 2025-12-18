@@ -1,122 +1,156 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-:root {
-  --color-primary: #70cbff;
-  --color-secondary: #2C3E50;
-  --color-light: #ffffff;
-  --color-dark: #212529;
-  --color-text-on-primary: #333333;
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= --theme(--breakpoint-sm)) {
+    max-width: none;
+  }
+  @media (width >= 640px) {
+    max-width: 640px;
+  }
+  @media (width >= 768px) {
+    max-width: 768px;
+  }
+  @media (width >= 1024px) {
+    max-width: 1024px;
+  }
+  @media (width >= 1280px) {
+    max-width: 1280px;
+  }
+  @media (width >= 1536px) {
+    max-width: 1536px;
+  }
 }
 
-/* Custom color utilities */
-@layer utilities {
-  .text-primary {
-    color: var(--color-primary);
-  }
+@theme {
+  --font-montserrat: var(--font-montserrat), sans-serif;
+  --font-lato: var(--font-lato), sans-serif;
 
-  .text-secondary {
-    color: var(--color-secondary);
-  }
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+}
 
-  .bg-primary {
-    background-color: var(--color-primary);
-  }
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
 
-  .bg-secondary {
-    background-color: var(--color-secondary);
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
   }
+}
 
-  .border-primary {
-    border-color: var(--color-primary);
-  }
-
-  .border-secondary {
-    border-color: var(--color-secondary);
-  }
-
-  .text-on-primary {
-    color: var(--color-text-on-primary);
-  }
+@utility text-primary {
+  color: var(--color-primary);
+}
+@utility text-secondary {
+  color: var(--color-secondary);
+}
+@utility bg-primary {
+  background-color: var(--color-primary);
+}
+@utility bg-secondary {
+  background-color: var(--color-secondary);
+}
+@utility border-primary {
+  border-color: var(--color-primary);
+}
+@utility border-secondary {
+  border-color: var(--color-secondary);
+}
+@utility text-on-primary {
+  color: var(--color-text-on-primary);
 }
 
 /* Font family utilities */
-@layer utilities {
-  .font-montserrat {
-    font-family: var(--font-montserrat), sans-serif;
-  }
-
-  .font-lato {
-    font-family: var(--font-lato), sans-serif;
-  }
+@utility font-montserrat {
+  font-family: var(--font-montserrat), sans-serif;
 }
-
-/* Custom styles */
-body {
+@utility font-lato {
   font-family: var(--font-lato), sans-serif;
 }
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-montserrat), sans-serif;
-  font-weight: 700;
+@utility btn-animated {
+  @apply transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg;
+}
+@utility btn-primary-animated {
+  @apply bg-primary transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110;
+  color: var(--color-text-on-primary);
+}
+@utility btn-secondary-animated {
+  @apply bg-secondary text-white transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110;
+}
+@utility btn-social-animated {
+  @apply transition-all duration-300 ease-in-out transform hover:scale-110 hover:shadow-lg hover:-translate-y-1;
+}
+@utility nav-link-animated {
+  @apply transition-all duration-300 ease-in-out hover:scale-105 hover:text-primary;
+}
+@utility mobile-menu-btn-animated {
+  @apply transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-3 hover:shadow-md;
+  background-color: var(--color-primary);
+  color: var(--color-text-on-primary);
 }
 
-/* Smooth scrolling for navigation */
-html {
-  scroll-behavior: smooth;
+@layer utilities {
+  :root {
+    --color-primary: #70cbff;
+    --color-secondary: #2c3e50;
+    --color-light: #ffffff;
+    --color-dark: #212529;
+    --color-text-on-primary: #333333;
+  }
+
+  /* Custom color utilities */
 }
 
-/* Project item hover effects */
-.project-item {
-  position: relative;
-  overflow: hidden;
-  border-radius: 0.5rem;
-}
-
-.project-item-caption {
-  background-color: rgba(112, 203, 255, 0.9);
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-
-.project-item:hover .project-item-caption {
-  opacity: 1;
-}
-
-/* Button hover animations */
-@layer components {
-  .btn-animated {
-    @apply transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg;
+@layer utilities {
+  /* Custom styles */
+  body {
+    font-family: var(--font-lato), sans-serif;
   }
 
-  .btn-primary-animated {
-    @apply bg-primary transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110;
-    color: var(--color-text-on-primary);
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-montserrat), sans-serif;
+    font-weight: 700;
   }
 
-  .btn-secondary-animated {
-    @apply bg-secondary text-white transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110;
+  /* Smooth scrolling for navigation */
+  html {
+    scroll-behavior: smooth;
   }
 
-  .btn-social-animated {
-    @apply transition-all duration-300 ease-in-out transform hover:scale-110 hover:shadow-lg hover:-translate-y-1;
+  /* Project item hover effects */
+  .project-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.5rem;
   }
 
-  .nav-link-animated {
-    @apply transition-all duration-300 ease-in-out hover:scale-105 hover:text-primary;
+  .project-item-caption {
+    background-color: rgba(112, 203, 255, 0.9);
+    opacity: 0;
+    transition: all 0.3s ease;
   }
 
-  .mobile-menu-btn-animated {
-    @apply transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-3 hover:shadow-md;
-    background-color: var(--color-primary);
-    color: var(--color-text-on-primary);
+  .project-item:hover .project-item-caption {
+    opacity: 1;
   }
+
+  /* Button hover animations */
 }
 
 /* Custom button styles */

@@ -28,10 +28,10 @@ const Experience = async () => {
         </div>
 
         {items.length === 0 ? (
-          <div className="max-w-3xl mx-auto text-center bg-white rounded-lg shadow p-10 border border-gray-200">
+          <div className="max-w-3xl mx-auto text-center bg-white rounded-lg shadow-sm p-10 border border-gray-200">
             <p className="text-gray-800 text-lg font-semibold">No experiences added yet.</p>
             <p className="text-gray-700 mt-3">
-              Add entries in <code className="bg-primary px-2 py-1 rounded border border-gray-200">src/data/experience.ts</code>{' '}
+              Add entries in <code className="bg-primary px-2 py-1 rounded-sm border border-gray-200">src/data/experience.ts</code>{' '}
               to populate this section.
             </p>
           </div>
@@ -40,7 +40,7 @@ const Experience = async () => {
             {items.map((item) => (
               <div
                 key={item.id}
-                className="bg-white rounded-lg shadow border border-gray-200 p-6 flex flex-col gap-3"
+                className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex flex-col gap-3"
               >
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>

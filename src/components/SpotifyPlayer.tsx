@@ -138,7 +138,7 @@ export default function SpotifyPlayer() {
 
       <div className="flex items-center space-x-4">
         {track.artworkUrl && (
-          <div className="relative w-16 h-16 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100">
+          <div className="relative w-16 h-16 shrink-0 overflow-hidden rounded-lg bg-gray-100">
             <Image
               src={track.artworkUrl}
               alt={`${track.album || track.name} cover`}

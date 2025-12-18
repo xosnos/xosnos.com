@@ -22,7 +22,7 @@ export default async function BlogPostPage({
     <article className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-16 max-w-4xl space-y-8">
         <div className="flex items-center justify-between text-sm text-gray-600">
-          <Link href="/#blogs" className="text-primary font-semibold hover:underline">
+          <Link href="/blogs" className="text-primary font-semibold hover:underline">
             ← Back to blogs
           </Link>
           <div className="flex items-center gap-3">
@@ -57,7 +57,7 @@ export default async function BlogPostPage({
         )}
 
         {post.heroImage && (
-          <div className="w-full aspect-[16/9] overflow-hidden rounded-xl border border-gray-200 bg-gray-50 shadow-sm relative">
+          <div className="w-full aspect-video overflow-hidden rounded-xl border border-gray-200 bg-gray-50 shadow-xs relative">
             <Image
               src={post.heroImage}
               alt={post.title}
