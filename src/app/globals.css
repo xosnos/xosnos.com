@@ -31,14 +31,6 @@
   --color-secondary: var(--color-secondary);
 }
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
   *,
   ::after,
@@ -78,26 +70,10 @@
 @utility font-lato {
   font-family: var(--font-lato), sans-serif;
 }
-@utility btn-animated {
-  @apply transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg;
-}
-@utility btn-primary-animated {
-  @apply bg-primary transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110;
-  color: var(--color-text-on-primary);
-}
-@utility btn-secondary-animated {
-  @apply bg-secondary text-white transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-110;
-}
-@utility btn-social-animated {
-  @apply transition-all duration-300 ease-in-out transform hover:scale-110 hover:shadow-lg hover:-translate-y-1;
-}
+
+/* Animations and Transitions */
 @utility nav-link-animated {
   @apply transition-all duration-300 ease-in-out hover:scale-105 hover:text-primary;
-}
-@utility mobile-menu-btn-animated {
-  @apply transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-3 hover:shadow-md;
-  background-color: var(--color-primary);
-  color: var(--color-text-on-primary);
 }
 
 @layer utilities {
@@ -109,11 +85,6 @@
     --color-text-on-primary: #333333;
   }
 
-  /* Custom color utilities */
-}
-
-@layer utilities {
-  /* Custom styles */
   body {
     font-family: var(--font-lato), sans-serif;
   }
@@ -128,176 +99,65 @@
     font-weight: 700;
   }
 
-  /* Smooth scrolling for navigation */
   html {
     scroll-behavior: smooth;
   }
-
-  /* Project item hover effects */
-  .project-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 0.5rem;
-  }
-
-  .project-item-caption {
-    background-color: rgba(112, 203, 255, 0.9);
-    opacity: 0;
-    transition: all 0.3s ease;
-  }
-
-  .project-item:hover .project-item-caption {
-    opacity: 1;
-  }
-
-  /* Button hover animations */
 }
 
-/* Custom button styles */
-.btn-outline-light {
-  @apply border border-white text-white hover:bg-white hover:text-gray-900 transition-all duration-300 transform hover:scale-105 hover:shadow-lg;
-}
-
-.btn-social {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Skills badges styling */
-.skills-section img {
-  margin: 0.25rem;
-  transition: transform 0.2s ease-in-out;
-}
-
-.skills-section img:hover {
-  transform: scale(1.05);
-}
-
-/* Modal styling */
-.modal-overlay {
-  background-color: rgba(0, 0, 0, 0.75);
-}
-
-/* Navigation hover effects */
-.nav-item-hover {
-  @apply relative transition-all duration-300 ease-in-out;
-}
-
-.nav-item-hover::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background-color: var(--color-primary);
-  transition: all 0.3s ease-in-out;
-  transform: translateX(-50%);
-}
-
-.nav-item-hover:hover::after {
-  width: 100%;
-}
-
-/* Pulse animation for CTA buttons */
-@keyframes pulse-glow {
-
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(112, 203, 255, 0.4);
-  }
-
-  50% {
-    box-shadow: 0 0 0 10px rgba(112, 203, 255, 0);
-  }
-}
-
-.btn-pulse {
-  animation: pulse-glow 2s infinite;
-}
-
-/* Bounce animation for scroll-to-top */
-@keyframes bounce {
-
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
-    transform: translateY(0);
-  }
-
-  40% {
-    transform: translateY(-10px);
-  }
-
-  60% {
-    transform: translateY(-5px);
-  }
-}
-
-.btn-bounce:hover {
-  animation: bounce 1s;
-}
-
-/* Desktop-only title banner effect */
-@keyframes gradient-shift {
-
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes shimmer {
+/* Animation Keyframes */
+@keyframes blob {
   0% {
-    background-position: -200% center;
+    transform: translate(0px, 0px) scale(1);
   }
-
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
   100% {
-    background-position: 200% center;
+    transform: translate(0px, 0px) scale(1);
   }
 }
 
-.title-banner-effect {
-  background: linear-gradient(90deg,
-      #1a1a1a 0%,
-      #2C3E50 25%,
-      #70cbff 50%,
-      #2C3E50 75%,
-      #1a1a1a 100%);
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradient-shift 4s ease-in-out infinite;
-  filter: drop-shadow(0 0 20px rgba(112, 203, 255, 0.3));
-  position: relative;
+.animate-blob {
+  animation: blob 7s infinite;
 }
 
-.title-banner-effect::before {
-  content: attr(data-text);
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg,
-      transparent 0%,
-      rgba(112, 203, 255, 0.6) 50%,
-      transparent 100%);
-  background-size: 200% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 3s linear infinite;
-  z-index: 1;
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Fade In Zoom In Animation */
+@keyframes fade-in-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-in {
+  animation: fade-in-zoom-in 0.3s ease-out forwards;
+}
+
+/* Spin Slow Animation */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
 }

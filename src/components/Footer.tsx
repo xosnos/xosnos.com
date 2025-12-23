@@ -1,5 +1,6 @@
 import BrandIcon from './BrandIcon';
 import { brandIcons } from './brandIcons';
+import { Heart } from 'lucide-react';
 
 const Footer = () => {
   const socialLinks = [
@@ -18,103 +19,63 @@ const Footer = () => {
       icon: brandIcons.x,
       label: 'X',
     },
-    // Temporarily hidden
-    // {
-    //   href: 'https://xosnos.medium.com/',
-    //   icon: SOME_ICON,
-    //   label: 'Medium',
-    // },
   ];
 
   return (
-    <footer className="bg-secondary text-white">
-      {/* Main Footer */}
-      <div className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-            {/* Location */}
-            <div>
-              <h4 className="text-xl font-montserrat font-bold uppercase mb-4">
-                Location
-              </h4>
-              <p className="text-lg leading-relaxed">
-                <span>San Jose, California</span>
-                <br />
-                <span>Grand Rapids, Michigan</span>
-              </p>
-            </div>
+    <footer className="bg-secondary text-white py-12 relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
 
-            {/* Social Links */}
-            <div>
-              <h4 className="text-xl font-montserrat font-bold uppercase mb-6">
-                Around the Web
-              </h4>
-              <div className="flex justify-center space-x-4">
-                {socialLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-social btn-outline-light btn-social-animated"
-                    aria-label={link.label}
-                  >
-                    <BrandIcon icon={link.icon} className="w-5 h-5" title={link.label} />
-                  </a>
-                ))}
-              </div>
-            </div>
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
 
-            {/* Credits */}
-            <div>
-              <h4 className="text-xl font-montserrat font-bold uppercase mb-4">
-                Credits & References
-              </h4>
-              <div className="max-w-xs mx-auto">
-                <ul className="space-y-1 text-lg">
-                  <li>Codecademy (Self-taught) 🧠</li>
-                  <li>My M4 Pro Mac Mini 🖥️</li>
-                  <li>Cursor & Claude Code 🤖</li>
-                </ul>
-              </div>
-            </div>
+          {/* Brand & Copyright */}
+          <div className="text-center md:text-left">
+            <h2 className="text-2xl font-montserrat font-bold uppercase tracking-wider mb-2">
+              xosnos
+            </h2>
+            <p className="text-gray-400 text-sm">
+              Copyright © {new Date().getFullYear()} Steven Nguyen
+            </p>
+             <p className="text-gray-500 text-xs mt-1">
+              Built with Next.js, Tailwind CSS & Love
+            </p>
+          </div>
+
+          {/* Social Links */}
+          <div className="flex gap-6">
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group p-3 bg-white/5 rounded-full hover:bg-white/20 hover:scale-110 transition-all duration-300"
+                aria-label={link.label}
+              >
+                <BrandIcon icon={link.icon} className="w-5 h-5 fill-gray-300 group-hover:fill-white transition-colors" title={link.label} />
+              </a>
+            ))}
           </div>
         </div>
-      </div>
 
-      {/* Copyright */}
-      <div className="bg-secondary py-4">
-        <div className="container mx-auto px-4 text-center">
-          <small className="text-gray-300">
-            Copyright © xosnos {new Date().getFullYear()}
-          </small>
-        </div>
-      </div>
+        {/* Divider */}
+        <div className="h-px w-full bg-white/10 my-8"></div>
 
-      {/* Scroll to Top Button - Only visible on mobile */}
-      <div className="fixed bottom-4 right-4 lg:hidden">
-        <a
-          href="#page-top"
-          className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg btn-primary-animated btn-bounce text-on-primary"
-          aria-label="Scroll to top"
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5 10l7-7m0 0l7 7m-7-7v18"
-            />
-          </svg>
-        </a>
+        {/* Bottom Message */}
+         <div className="flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+             <div className="flex items-center gap-1">
+                <span>Designed & Developed by Steven Nguyen</span>
+             </div>
+             <div className="flex items-center gap-2">
+                <Heart className="w-3 h-3 text-red-500 animate-pulse" />
+                <span>Thanks for visiting!</span>
+             </div>
+         </div>
+
       </div>
     </footer>
   );
 };
 
-export default Footer; 
+export default Footer;
