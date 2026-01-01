@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import SpotifyPlayer from '@/components/SpotifyPlayer';
 import { Sparkles, Rocket } from 'lucide-react';
+import SpotifyPlayer from '@/components/SpotifyPlayer';
 
 const Hero = () => {
   return (
