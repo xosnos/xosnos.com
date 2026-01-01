@@ -68,6 +68,7 @@ const Skills = async () => {
                             height={28}
                             className="h-7 w-auto"
                             unoptimized
+                            loading="lazy"
                           />
                         ))}
                       </div>

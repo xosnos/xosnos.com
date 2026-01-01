@@ -8,6 +8,8 @@ const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-montserrat",
+  display: "swap", // Prevent FOIT (Flash of Invisible Text)
+  preload: true,
 });
 
 const lato = Lato({
@@ -15,6 +17,8 @@ const lato = Lato({
   weight: ["400", "700"],
   style: ["normal", "italic"],
   variable: "--font-lato",
+  display: "swap", // Prevent FOIT (Flash of Invisible Text)
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -44,6 +48,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <head>
+        {/* Preconnect to external domains for faster resource loading */}
+        <link rel="preconnect" href="https://i.scdn.co" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://img.shields.io" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://raw.githubusercontent.com" />
+        <link rel="dns-prefetch" href="https://is1-ssl.mzstatic.com" />
+      </head>
       <body
         className={`${montserrat.variable} ${lato.variable} font-lato antialiased`}
       >

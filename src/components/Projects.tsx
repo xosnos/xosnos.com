@@ -121,6 +121,7 @@ const Projects = () => {
                   width={400}
                   height={300}
                   className="w-full h-64 object-cover rounded-lg"
+                  loading="lazy"
                 />
                 <div className="project-item-caption absolute inset-0 flex items-center justify-center rounded-lg">
                   <Code className="w-16 h-16 text-white" />
