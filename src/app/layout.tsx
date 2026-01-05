@@ -22,7 +22,7 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title: "Steven Nguyen - Software Engineer",
+  title: "Steven Nguyen",
   description: "Projects and work of Steven Nguyen, a software engineer specializing in full-stack web and mobile development.",
   openGraph: {
     type: "website",

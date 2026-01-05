@@ -2,7 +2,7 @@ import { Send } from 'lucide-react';
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-20 bg-white text-secondary">
+    <section id="contact" className="py-20 bg-primary text-secondary">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -24,7 +24,7 @@ const Contact = () => {
         <div className="text-center">
           <a
             href="mailto:steven@xosnos.com"
-            className="px-8 py-4 rounded-full font-montserrat font-bold text-xl uppercase tracking-wider btn-primary-animated btn-pulse inline-flex items-center gap-3 shadow-lg"
+            className="px-8 py-4 rounded-full font-montserrat font-bold text-xl uppercase tracking-wider bg-white text-secondary btn-pulse-white inline-flex items-center gap-3 shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:brightness-95"
           >
             Shoot me an email
             <Send className="w-6 h-6" />

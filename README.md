@@ -9,7 +9,6 @@ A modern, responsive portfolio site built with Next.js 16, TypeScript, and Tailw
 - **Responsive Design**: Mobile-first with Tailwind CSS
 - **Optimized Performance**: Static generation and image optimization
 - **Now Playing**: Apple Music primary with Spotify fallback via `/api/music/now-playing`
-- **Blogs**: Markdown-driven posts with detail pages at `/blogs/[slug]`
 - **Projects & Education**: Interactive modals for deep dives
 - **Skills**: Synced from GitHub README badges
 - **Accessibility & SEO**: Semantic HTML, ARIA, and metadata
@@ -44,7 +43,6 @@ public/
 - **TypeScript** - Type safety and better development experience
 - **Tailwind CSS** - Utility-first CSS framework
 - **Lucide React** - Modern icon library
-- **React Markdown + remark-gfm** - Markdown rendering for blog posts
 - **Framer Motion** - Animation library (for future enhancements)
 
 ## 🎨 Design System
@@ -127,11 +125,6 @@ Edit `src/components/Projects.tsx` and add to the `projectItems` array:
 }
 ```
 
-### Adding Blogs
-
-- Add/update entries in `src/data/blogs.ts` with `published: true`.
-- `content` supports Markdown (rendered via React Markdown + GFM) on `/blogs/[slug]`.
-
 ### Adding Experience
 
 - Add entries in `src/data/experience.ts`; set `published: true` to show.
@@ -141,13 +134,12 @@ Edit `src/components/Projects.tsx` and add to the `projectItems` array:
 The main page renders sections in this sequence:
 
 1. Hero (Name / Now Playing)
-2. About
-3. Blogs
-4. Projects
-5. Experience
-6. Skills
-7. Education
-8. Contact
+2. Projects
+3. Experience
+4. Skills
+5. Education
+6. About
+7. Contact
 
 ### Updating Skills
 
