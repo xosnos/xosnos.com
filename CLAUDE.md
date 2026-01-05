@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is Steven Nguyen's personal portfolio website built with Next.js 16 (React 19), TypeScript, and Tailwind CSS. It's a modern, responsive single-page application showcasing projects, blogs, experience, and skills with integrated Apple Music (primary) / Spotify (fallback) now-playing and GitHub data.
+This is Steven Nguyen's personal portfolio website built with Next.js 16 (React 19), TypeScript, and Tailwind CSS. It's a modern, responsive single-page application showcasing projects, experience, and skills with integrated Apple Music (primary) / Spotify (fallback) now-playing and GitHub data.
 
 ## Development Commands
 
@@ -30,15 +30,9 @@ The project uses Next.js 16 with the App Router pattern and follows a component-
 
 - **src/app/**: Next.js App Router files
   - `layout.tsx`: Root layout with font configuration (Montserrat, Lato), metadata, Vercel Analytics and Speed Insights
-  - `page.tsx`: Main page that imports and renders all sections in order (Hero, About, Blogs, Projects, Experience, Skills, Education, Contact)
+  - `page.tsx`: Main page that imports and renders all sections in order (Hero, Projects, Experience, Skills, Education, About, Contact)
   - `globals.css`: Global styles with Tailwind directives, custom CSS variables, utility classes, animations
-  - `blogs/`: Blog routes
-    - `page.tsx`: Blog index page at `/blogs` with grid layout, tags, and reading time
-    - `[slug]/page.tsx`: Dynamic blog detail pages with markdown rendering, hero images, and canonical URL support
   - `api/`: API routes for external integrations
-    - `blogs/`: Blog data endpoints
-      - `route.ts`: Returns list of published blogs with count
-      - `[slug]/route.ts`: Returns single blog post by slug (404 if not found/unpublished)
     - `music/now-playing/`: Unified music endpoint (Apple Music primary, Spotify fallback)
     - `spotify/`: Spotify OAuth flow endpoints (auth, callback, top-track - legacy)
     - `skills/`: GitHub README parsing endpoint
@@ -50,7 +44,6 @@ The project uses Next.js 16 with the App Router pattern and follows a component-
   - `Navigation.tsx`: Client component with scroll-based active section tracking and mobile menu
   - `Footer.tsx`: Server component with scroll-to-top button (mobile only), social links, and location info
 - **src/data/**: Data files
-  - `blogs.ts`: Blog posts with markdown content, tags, reading time, optional `canonicalUrl` and `heroImage` fields
   - `experience.ts`: Experience entries with `published` flag and `type` field ('work' | 'volunteer' | 'project')
 - **src/lib/**: Utility libraries
   - `spotify.ts`: Spotify API integration with OAuth refresh token flow
@@ -69,12 +62,11 @@ The project uses Next.js 16 with the App Router pattern and follows a component-
 - **Navigation**: Fixed navigation bar with scroll-based active section tracking, mobile menu toggle, and dynamic shadow effect
 - **Hero**: Header section with profile image, animated title banner effect (desktop only), and SpotifyPlayer widget
 - **About**: About section with bio text and photo
-- **Blogs**: Server component that fetches published posts from `/api/blogs` and displays them in a grid; supports both homepage preview and dedicated `/blogs` index page
 - **Projects**: Client component with projects grid (7 total, 4 published) and modal details showing demo/repo links
 - **Experience**: Server component that fetches published experiences from API, supports work/volunteer/project types
 - **Skills**: Server component that fetches and displays skill badges dynamically from GitHub README with category organization
 - **Education**: Client component with education timeline and modal details; filters out "stay-tuned" placeholder items
-- **Contact**: Contact section with animated email CTA button using pulse-glow effect
+- **Contact**: Contact section with primary blue background and white email CTA button using white pulse-glow effect
 - **Footer**: Footer with social links (GitHub, LinkedIn, X), scroll-to-top button (mobile only with bounce animation), dual location display, and credits
 - **SpotifyPlayer**: Advanced music player with audio preview playback, play/pause controls, progress bar, and "Try again" error handling
 - **BrandIcon**: Reusable SVG icon component with type-safe brand icon data
@@ -82,24 +74,19 @@ The project uses Next.js 16 with the App Router pattern and follows a component-
 ### Section Order (page.tsx)
 
 1. Hero (Name / Now Playing)
-2. About
-3. Blogs
-4. Projects
-5. Experience
-6. Skills
-7. Education
-8. Contact
+2. Projects
+3. Experience
+4. Skills
+5. Education
+6. About
+7. Contact
 
 ### Routes
 
 **Page Routes:**
 - `/`: Main single-page application with all sections
-- `/blogs`: Dedicated blog index page with grid layout, tags, and reading time
-- `/blogs/[slug]`: Individual blog post pages with markdown rendering and hero images
 
 **API Routes:**
-- `/api/blogs`: GET - Returns list of published blogs (count + posts array)
-- `/api/blogs/[slug]`: GET - Returns single blog post by slug (404 if not found/unpublished)
 - `/api/music/now-playing`: GET - Unified music endpoint (Apple Music primary, Spotify fallback)
 - `/api/skills`: GET - Fetches and parses skills from GitHub README
 - `/api/spotify/auth`: GET - Initiates Spotify OAuth flow (redirects to Spotify)
@@ -114,7 +101,6 @@ The project uses Next.js 16 with the App Router pattern and follows a component-
 - **Tailwind CSS**: Utility-first styling with custom theme extensions
 - **Lucide React**: Icon library used throughout components
 - **Framer Motion**: Animation library (imported but minimal usage currently)
-- **React Markdown + remark-gfm**: Markdown rendering for blog posts
 - **Vercel Analytics + Speed Insights**: Performance monitoring and analytics
 
 ## External Integrations
@@ -209,7 +195,6 @@ Projects and Education components use similar modal patterns:
 - **Server components** (async data fetching):
   - `Hero.tsx`: Renders SpotifyPlayer but is itself a server component
   - `About.tsx`: Static content rendering
-  - `Blogs.tsx`: Fetches published blogs from API with async/await
   - `Experience.tsx`: Fetches published experiences from API with async/await
   - `Skills.tsx`: Fetches and parses GitHub README at build/revalidation time (1-hour revalidation)
   - `Contact.tsx`: Static contact form/CTA
@@ -218,13 +203,6 @@ Projects and Education components use similar modal patterns:
 
 ### Data Structure
 
-- `src/data/blogs.ts`: Blog posts with the following key fields:
-  - `published`: Boolean flag controlling visibility
-  - `content`: Markdown content rendered via React Markdown + GFM
-  - `canonicalUrl`: Optional field; when set, "Read post" links to external URL instead of local `/blogs/[slug]` page
-  - `heroImage`: Optional field; displays hero image at top of blog detail page
-  - `tags`: Array of topic tags
-  - `readTime`: Estimated reading time in minutes
 - `src/data/experience.ts`: Experience entries with:
   - `published`: Boolean flag controlling visibility
   - `type`: 'work' | 'volunteer' | 'project' type classification
@@ -268,7 +246,6 @@ Projects and Education components use similar modal patterns:
 - Navigation component tracks active section on scroll and highlights current section with primary color
 - Hero title banner effect (`.title-banner-effect`) only displays on desktop (md: breakpoint and above)
 - Footer scroll-to-top button only displays on mobile devices
-- Blog posts support both internal pages (`/blogs/[slug]`) and external canonical URLs
 - Education component automatically filters out "stay-tuned" placeholder items
 - Projects component contains 7 total projects (4 published, 3 unpublished)
 - Spotify OAuth callback URL hardcoded to `http://127.0.0.1:3000/api/spotify/callback` in spotify.ts
