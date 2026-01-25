@@ -18,10 +18,9 @@ const Footer = () => {
       icon: brandIcons.x,
       label: 'X',
     },
-    // Temporarily hidden
     // {
-    //   href: 'https://xosnos.medium.com/',
-    //   icon: SOME_ICON,
+    //   href: 'https://medium.com/@xosnos',
+    //   icon: brandIcons.medium,
     //   label: 'Medium',
     // },
   ];
