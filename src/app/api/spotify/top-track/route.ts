@@ -1,7 +1,20 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import { getAccessToken, getTopTrack } from '../../../../lib/spotify';
+import rateLimit from '@/lib/rate-limit';
 
-export async function GET() {
+const limiter = rateLimit({
+  interval: 60 * 1000, // 60 seconds
+  uniqueTokenPerInterval: 500, // Max 500 users per second
+});
+
+export async function GET(request: NextRequest) {
+  const ip = request.headers.get('x-forwarded-for') ?? '127.0.0.1';
+  try {
+    await limiter.check(20, ip); // 20 requests per minute
+  } catch {
+    return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 });
+  }
+
   try {
     const accessToken = await getAccessToken();
     const topTrack = await getTopTrack(accessToken);
