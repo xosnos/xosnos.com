@@ -14,7 +14,7 @@ const Navigation = () => {
 
   useEffect(() => {
     if (!isHome) {
-      setActiveSection('');
+      setTimeout(() => setActiveSection(''), 0);
       return;
     }
 
