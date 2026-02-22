@@ -1,62 +1,75 @@
 import Image from 'next/image';
-import { User } from 'lucide-react';
+import { User, MapPin, Coffee, Code2 } from 'lucide-react';
+import { aboutContent } from '@/data/about';
 
 const About = () => {
   return (
-    <section id="about" className="bg-white text-gray-900 py-20">
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-montserrat font-bold uppercase flex items-center justify-center gap-4 mb-6 text-secondary">
-            <User className="w-8 h-8" />
-            <span>About</span>
-            <User className="w-8 h-8" />
-          </h2>
-          <div className="flex items-center justify-center mb-8">
-            <div className="h-1 w-20 bg-secondary"></div>
-            <div className="mx-4">
-              <div className="w-4 h-4 bg-secondary"></div>
-            </div>
-            <div className="h-1 w-20 bg-secondary"></div>
-          </div>
-        </div>
+    <section id="about" className="bg-background py-24 px-6 md:px-12 relative overflow-hidden">
+      <div className="absolute top-[30%] left-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
 
-        {/* Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-          {/* Text Content */}
-          <div className="lg:order-1">
-            <div className="text-lg leading-relaxed space-y-6 text-gray-900">
-              <p>
-                I’m a passionate Software Engineer and tech enthusiast with over two years of professional experience, primarily at Workday, Inc. My expertise spans the full stack, mobile app development, robust DevOps practices, cybersecurity fundamentals, and the adoption of Generative AI. I’m driven by a keen interest in sustainable technology and building innovative, accessible solutions that truly make a difference in people’s daily lives.
-              </p>
-              <p>
-                My technical background is rooted in a B.S.E. in Computer Science from the University of Michigan while being self-taught. My top three programming languages are Python, TypeScript, and Java. I excel at leveraging all of my technical and soft-skills, including building scalable CI/CD pipelines, developing and deploying multi-platform applications to support diverse users, and ensuring seamless execution of projects.
-              </p>
-              <p>
-                Beyond the code, I thrive as a leader and program manager within my non-profit commitments. I value cross-functional collaboration, whether it’s overseeing long-term strategic planning or mentoring peers and students on various topics. I believe in the power of helping others while ensuring work is achievable and fun.
-              </p>
-              <p>
-                Currently based in San Jose, California, I enjoy the natural and cultural aspects of the area in my free time. I love exploring new restaurants, ordering a cup of the best matcha or coffee, and actively spend time outdoors, making sure to “touch grass”!
-              </p>
-              <p>
-                If you would like to know more about me, please feel free to reach out to me via email (via the contact button below) or on LinkedIn.
-              </p>
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+
+          <div className="lg:order-2 space-y-8">
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-br from-accent to-blue-600 rounded-3xl blur-2xl opacity-20 group-hover:opacity-30 transition-opacity duration-500" />
+              <div className="relative rounded-3xl overflow-hidden border border-border/50 shadow-2xl">
+                <Image
+                  src={aboutContent.image}
+                  alt="Steven Nguyen"
+                  width={600}
+                  height={600}
+                  className="w-full h-auto object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700 hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-6 rounded-2xl bg-card border border-border shadow-sm flex flex-col gap-2 items-center text-center">
+                <MapPin className="w-5 h-5 text-accent" />
+                <span className="text-xs font-montserrat font-bold uppercase tracking-widest text-foreground">{aboutContent.location}</span>
+              </div>
+              <div className="p-6 rounded-2xl bg-card border border-border shadow-sm flex flex-col gap-2 items-center text-center">
+                <Coffee className="w-5 h-5 text-accent" />
+                <span className="text-xs font-montserrat font-bold uppercase tracking-widest text-foreground">{aboutContent.funFact}</span>
+              </div>
             </div>
           </div>
 
-          {/* Image */}
-          <div className="lg:order-2 flex justify-center">
-            <div className="relative">
-              <Image
-                src="/assets/img/about-me-picture.jpeg"
-                alt="Steven Nguyen"
-                width={400}
-                height={400}
-                className="rounded-lg shadow-2xl"
-                loading="lazy"
-                placeholder="blur"
-                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUH/8QAIhAAAgEDAwUBAAAAAAAAAAAAAQIDAAQRBRIhBhMiMUFR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAZEQACAwEAAAAAAAAAAAAAAAABAgADESH/2gAMAwEAAhEDEQA/ANL0qO0uoVmt7i4aJhkE2jA/vIo1K0jRUT2JFAB+cMflKVZZlI5x5R2x/9k="
-              />
+          <div className="lg:order-1 space-y-10">
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-montserrat font-bold uppercase tracking-widest">
+                <User className="w-4 h-4" />
+                {aboutContent.sectionLabel}
+              </div>
+              <h2 className="text-4xl md:text-6xl font-montserrat font-extrabold tracking-tighter text-foreground">
+                {aboutContent.sectionTitle}
+              </h2>
+              <div className="w-12 h-1 bg-accent rounded-full" />
+            </div>
+
+            <div className="space-y-6 text-lg text-muted-foreground font-light leading-relaxed">
+              {aboutContent.bio.map((paragraph, index) => (
+                <p key={index}>
+                  {paragraph.text.split(/(\*\*[^*]+\*\*)/).map((part, i) => {
+                    if (part.startsWith('**') && part.endsWith('**')) {
+                      return (
+                        <span key={i} className="text-foreground font-semibold">
+                          {part.slice(2, -2)}
+                        </span>
+                      );
+                    }
+                    return part;
+                  })}
+                </p>
+              ))}
+              <p className="pt-4 flex items-center gap-3">
+                <Code2 className="w-6 h-6 text-accent" />
+                <span className="text-foreground font-montserrat font-bold uppercase tracking-widest text-sm italic">
+                  {aboutContent.topLanguages}
+                </span>
+              </p>
             </div>
           </div>
         </div>
@@ -65,4 +78,4 @@ const About = () => {
   );
 };
 
-export default About; 
+export default About;
