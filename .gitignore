@@ -28,3 +28,6 @@ yarn-error.log*
 .env
 .env.build
 .vercel
+
+.omc/
+next-env.d.ts

@@ -1,119 +1,114 @@
-import BrandIcon from './BrandIcon';
-import { brandIcons } from './brandIcons';
+import { MapPin, ArrowUp, Github, Linkedin, Twitter, Globe } from 'lucide-react';
+import { footerContent } from '@/data/footer';
+
+const iconMap = {
+  github: <Github className="w-5 h-5" />,
+  linkedin: <Linkedin className="w-5 h-5" />,
+  x: <Twitter className="w-5 h-5" />,
+} as const;
 
 const Footer = () => {
-  const socialLinks = [
-    {
-      href: 'https://github.com/xosnos/',
-      icon: brandIcons.github,
-      label: 'GitHub',
-    },
-    {
-      href: 'https://www.linkedin.com/in/xosnos/',
-      icon: brandIcons.linkedin,
-      label: 'LinkedIn',
-    },
-    {
-      href: 'https://x.com/xosnos',
-      icon: brandIcons.x,
-      label: 'X',
-    },
-    // {
-    //   href: 'https://medium.com/@xosnos',
-    //   icon: brandIcons.medium,
-    //   label: 'Medium',
-    // },
-  ];
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-secondary text-white">
-      {/* Main Footer */}
-      <div className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-            {/* Location */}
-            <div>
-              <h4 className="text-xl font-montserrat font-bold uppercase mb-4">
-                Location
-              </h4>
-              <p className="text-lg leading-relaxed">
-                <span>San Jose, California</span>
-                <br />
-                <span>Grand Rapids, Michigan</span>
-              </p>
-            </div>
+    <footer className="bg-background py-20 px-6 md:px-12 relative overflow-hidden border-t border-border/50">
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-8">
 
-            {/* Social Links */}
-            <div>
-              <h4 className="text-xl font-montserrat font-bold uppercase mb-6">
-                Around the Web
-              </h4>
-              <div className="flex justify-center space-x-4">
-                {socialLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-social btn-outline-light btn-social-animated"
-                    aria-label={link.label}
-                  >
-                    <BrandIcon icon={link.icon} className="w-5 h-5" title={link.label} />
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Credits */}
-            <div>
-              <h4 className="text-xl font-montserrat font-bold uppercase mb-4">
-                Credits & References
-              </h4>
-              <div className="max-w-xs mx-auto">
-                <ul className="space-y-1 text-lg">
-                  <li>Codecademy (Self-taught) 🧠</li>
-                  <li>My M4 Pro Mac Mini 🖥️</li>
-                  <li>Cursor & Claude Code 🤖</li>
-                </ul>
-              </div>
+          <div className="space-y-6 lg:col-span-1">
+            <h4 className="text-3xl font-montserrat font-extrabold tracking-tighter text-foreground">
+              {footerContent.brand}<span className="text-accent">.</span>
+            </h4>
+            <div className="space-y-3 text-muted-foreground font-light text-sm leading-relaxed">
+              {footerContent.locations.map((loc) => (
+                <div key={loc.label} className="flex items-center gap-2">
+                  {loc.type === 'primary' ? (
+                    <MapPin className="w-4 h-4 text-accent" />
+                  ) : (
+                    <Globe className="w-4 h-4 text-accent" />
+                  )}
+                  <span>{loc.label}</span>
+                </div>
+              ))}
             </div>
           </div>
+
+          <div className="space-y-6 lg:col-span-1">
+            <h5 className="text-xs font-montserrat font-bold uppercase tracking-widest text-foreground opacity-60">
+              Social Connectivity
+            </h5>
+            <div className="flex flex-wrap gap-4">
+              {footerContent.socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-full bg-muted border border-border text-muted-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent hover:scale-110 hover:-translate-y-1 transition-all duration-300 shadow-sm"
+                  aria-label={link.label}
+                >
+                  {iconMap[link.icon]}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-6 lg:col-span-1">
+            <h5 className="text-xs font-montserrat font-bold uppercase tracking-widest text-foreground opacity-60">
+              Inspiration & Tools
+            </h5>
+            <ul className="space-y-3 text-sm text-muted-foreground font-light">
+              {footerContent.techStack.map((tech) => (
+                <li key={tech} className="flex items-center gap-2 hover:text-foreground transition-colors cursor-default">
+                  <span className="w-1 h-1 rounded-full bg-accent" />
+                  <span>{tech}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="space-y-6 lg:col-span-1">
+            <h5 className="text-xs font-montserrat font-bold uppercase tracking-widest text-foreground opacity-60">
+              Availability
+            </h5>
+            <div className="p-4 rounded-2xl bg-accent/5 border border-accent/10 space-y-2">
+              <p className="text-xs font-montserrat font-bold uppercase text-accent tracking-widest animate-pulse">
+                {footerContent.availability.status}
+              </p>
+              <p className="text-sm text-muted-foreground font-light italic">
+                {footerContent.availability.message}
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <div className="mt-20 pt-8 border-t border-border/30 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-xs font-montserrat font-bold uppercase tracking-widest text-muted-foreground/50">
+            Copyright &copy; {currentYear} <span className="text-foreground/60">Steven Nguyen (xosnos)</span>. All rights reserved.
+          </p>
+
+          <a
+            href="#page-top"
+            className="group inline-flex items-center gap-2 text-xs font-montserrat font-bold uppercase tracking-widest text-muted-foreground hover:text-accent transition-colors"
+          >
+            Back to top
+            <ArrowUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
+          </a>
         </div>
       </div>
 
-      {/* Copyright */}
-      <div className="bg-secondary py-4">
-        <div className="container mx-auto px-4 text-center">
-          <small className="text-gray-300">
-            Copyright © xosnos {new Date().getFullYear()}
-          </small>
-        </div>
-      </div>
-
-      {/* Scroll to Top Button - Only visible on mobile */}
-      <div className="fixed bottom-4 right-4 lg:hidden">
+      <div className="fixed bottom-8 right-8 lg:hidden z-40">
         <a
           href="#page-top"
-          className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg btn-primary-animated btn-bounce text-on-primary"
+          className="w-14 h-14 rounded-full bg-background/80 backdrop-blur-md border border-border flex items-center justify-center shadow-2xl text-accent hover:scale-110 active:scale-95 transition-all"
           aria-label="Scroll to top"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5 10l7-7m0 0l7 7m-7-7v18"
-            />
-          </svg>
+          <ArrowUp className="w-6 h-6" />
         </a>
       </div>
     </footer>
   );
 };
 
-export default Footer; 
+export default Footer;

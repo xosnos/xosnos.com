@@ -1,33 +1,36 @@
 import type { Metadata } from "next";
 import { Montserrat, Lato } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next"
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import ThemeScript from "@/components/ThemeScript";
 import "./globals.css";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "700", "800"],
   variable: "--font-montserrat",
-  display: "swap", // Prevent FOIT (Flash of Invisible Text)
+  display: "swap",
   preload: true,
 });
 
 const lato = Lato({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["300", "400", "700"],
   style: ["normal", "italic"],
   variable: "--font-lato",
-  display: "swap", // Prevent FOIT (Flash of Invisible Text)
+  display: "swap",
   preload: true,
 });
 
 export const metadata: Metadata = {
-  title: "Steven Nguyen",
-  description: "Projects and work of Steven Nguyen, a software engineer specializing in full-stack web and mobile development.",
+  title: "Steven Nguyen | Software Engineer",
+  description: "Portfolio of Steven Nguyen, a software engineer specializing in full-stack web and mobile development. Exploring the intersection of code, design, and AI.",
   openGraph: {
     type: "website",
     siteName: "Steven Nguyen",
     url: "https://www.xosnos.com",
+    title: "Steven Nguyen | Software Engineer",
+    description: "Full-stack Software Engineer & AI Enthusiast based in San Jose, CA.",
   },
   icons: {
     apple: "/assets/img/icon/apple-touch-icon.png",
@@ -49,11 +52,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
-        {/* Preconnect to external domains for faster resource loading */}
+        <ThemeScript />
         <link rel="preconnect" href="https://i.scdn.co" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://img.shields.io" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://raw.githubusercontent.com" />
-        <link rel="dns-prefetch" href="https://is1-ssl.mzstatic.com" />
       </head>
       <body
         className={`${montserrat.variable} ${lato.variable} font-lato antialiased`}
