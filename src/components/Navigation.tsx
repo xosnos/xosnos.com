@@ -5,6 +5,7 @@ import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { navItems } from '@/data/navigation';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -55,9 +56,8 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isHome, isScrolled, activeSection, pathname]);
 
-  const navClasses = `fixed w-full top-0 z-50 transition-all duration-300 ${
-    displayScrolled ? 'bg-background/80 backdrop-blur-md shadow-sm border-b border-border' : 'bg-transparent'
-  }`;
+  const navClasses = `fixed w-full top-0 z-50 transition-all duration-300 ${displayScrolled ? 'bg-background/80 backdrop-blur-md shadow-sm border-b border-border' : 'bg-transparent'
+    }`;
 
   return (
     <nav className={navClasses}>
@@ -71,33 +71,36 @@ const Navigation = () => {
             @xosnos
           </Link>
 
-          <div className="hidden lg:flex space-x-1">
-            {navItems.map((item) => {
-              const href = isHome ? `#${item.section}` : `/#${item.section}`;
-              const isActive = displayActiveSection === item.section;
-              return (
-                <Link
-                  key={item.section}
-                  href={href}
-                  className={`font-montserrat font-bold uppercase text-sm tracking-wider py-2 px-4 rounded-md transition-all duration-200 ${
-                    isActive
+          <div className="flex items-center space-x-4">
+            <div className="hidden lg:flex space-x-1">
+              {navItems.map((item) => {
+                const href = isHome ? `#${item.section}` : `/#${item.section}`;
+                const isActive = displayActiveSection === item.section;
+                return (
+                  <Link
+                    key={item.section}
+                    href={href}
+                    className={`font-montserrat font-bold uppercase text-sm tracking-wider py-2 px-4 rounded-md transition-all duration-200 ${isActive
                       ? 'text-accent'
                       : 'text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </div>
+                      }`}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </div>
 
-          <button
-            className="lg:hidden p-2 rounded-md text-foreground hover:bg-muted transition-colors"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle navigation"
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            <ThemeToggle />
+
+            <button
+              className="lg:hidden p-2 rounded-md text-foreground hover:bg-muted transition-colors"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle navigation"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {isMenuOpen && (
@@ -110,9 +113,8 @@ const Navigation = () => {
                   <Link
                     key={item.section}
                     href={href}
-                    className={`block font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded-md transition-colors ${
-                      isActive ? 'text-accent bg-accent/10' : 'text-foreground hover:bg-muted'
-                    }`}
+                    className={`block font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded-md transition-colors ${isActive ? 'text-accent bg-accent/10' : 'text-foreground hover:bg-muted'
+                      }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.label}

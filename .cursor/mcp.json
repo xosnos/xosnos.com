@@ -1,17 +1,13 @@
 {
   "mcpServers": {
-    "next-devtools": {
+    "filesystem": {
+      "type": "stdio",
       "command": "npx",
       "args": [
         "-y",
-        "next-devtools-mcp@latest"
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/xosnos/Projects/Career/xosnos.com"
       ]
-    },
-    "sentry": {
-      "url": "https://mcp.sentry.dev/mcp"
-    },
-    "vercel": {
-      "url": "https://mcp.vercel.com/"
     }
   }
 }
