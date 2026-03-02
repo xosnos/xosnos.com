@@ -11,6 +11,16 @@ export interface ProjectItem {
 
 const projectItems: ProjectItem[] = [
   {
+    id: 'terraces',
+    title: 'Terraces',
+    image: '/assets/img/projects/terraces.png',
+    description:
+      'Terraces is your AI-Native career agent. Capture roles, tailor your materials with local-first AI, score them like an ATS, and keep your portfolio & analytics in sync—without leaving one workspace.',
+    tags: ['Next.js', 'Supabase', 'AI', 'Tailwind'],
+    demoUrl: 'https://app.terraces.ai/',
+    published: true,
+  },
+  {
     id: 'uvsa-midwest',
     title: 'UVSA-Midwest App',
     image: '/assets/img/projects/uvsamidwest.png',
@@ -18,16 +28,6 @@ const projectItems: ProjectItem[] = [
       "UVSA-Midwest's official app helps to coordinate flagship events and keeps constituents up-to-date with personalized information during the year and conference-specific information for flagship events.",
     tags: ['React Native', 'Expo', 'Firebase'],
     demoUrl: 'https://app.uvsamidwest.org',
-    published: true,
-  },
-  {
-    id: 'vector',
-    title: 'Vector',
-    image: '/assets/img/projects/vector.png',
-    description:
-      'Vector is your AI career agent. Capture roles, tailor your materials with local-first AI, score them like an ATS, and keep your portfolio & analytics in sync—without leaving one workspace.',
-    tags: ['Next.js', 'AI', 'Tailwind'],
-    demoUrl: 'https://vector.xosnos.com/',
     published: true,
   },
   {
@@ -47,7 +47,7 @@ const projectItems: ProjectItem[] = [
     image: '/assets/img/projects/jammming.png',
     description:
       'jammming is a front-end application to create super duper fast playlists and send them directly to your Spotify account.',
-    tags: ['React', 'Spotify API', 'Tailwind'],
+    tags: ['React', 'Spotify API'],
     demoUrl: 'https://jammming.xosnos.com/',
     repoUrl: 'https://github.com/xosnos/jammming',
     published: true,
