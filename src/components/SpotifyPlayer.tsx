@@ -94,17 +94,20 @@ export default function SpotifyPlayer() {
 
   const providerLabel =
     track?.provider === 'apple'
-      ? 'Now Playing from Apple Music'
+      ? 'Apple Music'
       : track?.provider === 'spotify'
-        ? 'Top Track from Spotify'
+        ? 'Spotify'
         : 'Now Playing';
 
   if (loading) {
     return (
-      <div className="bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto">
+      <div className="bg-card/50 backdrop-blur-md rounded-3xl p-6 max-w-md mx-auto border border-border/50 animate-pulse">
         <div className="flex items-center space-x-3">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-          <span className="text-secondary">Loading now playing...</span>
+          <div className="h-10 w-10 bg-muted rounded-full animate-spin border-t-2 border-accent"></div>
+          <div className="space-y-2 flex-1">
+             <div className="h-3 bg-muted rounded w-1/3"></div>
+             <div className="h-4 bg-muted rounded w-3/4"></div>
+          </div>
         </div>
       </div>
     );
@@ -112,92 +115,101 @@ export default function SpotifyPlayer() {
 
   if (error || !track) {
     return (
-      <div className="bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto">
-        <div className="flex items-center space-x-3 text-red-500">
-          <Music className="h-6 w-6" />
-          <span>{error || 'Nothing is playing right now.'}</span>
+      <div className="bg-card/50 backdrop-blur-md rounded-3xl p-6 max-w-md mx-auto border border-border/50">
+        <div className="flex items-center justify-between text-muted-foreground">
+          <div className="flex items-center space-x-3">
+             <Music className="h-5 w-5 text-accent" />
+             <span className="text-sm font-medium">Offline</span>
+          </div>
+          <button
+            onClick={fetchNowPlaying}
+            className="text-xs font-montserrat font-bold uppercase tracking-widest hover:text-accent transition-colors"
+          >
+            Retry
+          </button>
         </div>
-        <button
-          onClick={fetchNowPlaying}
-          className="mt-3 text-sm text-primary hover:underline"
-        >
-          Try again
-        </button>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto border border-gray-100">
-      <div className="flex items-center space-x-2 mb-4">
-        <Volume2 className="h-5 w-5 text-green-500" />
-        <span className="text-sm font-semibold text-gray-600 uppercase tracking-wide">
-          {providerLabel}
-        </span>
+    <div className="group bg-card/40 backdrop-blur-xl rounded-3xl p-6 max-w-md mx-auto border border-border/50 shadow-2xl transition-all duration-500 hover:border-accent/30 hover:bg-card/60">
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center space-x-2">
+          <Volume2 className="h-4 w-4 text-accent animate-pulse" />
+          <span className="text-[10px] font-montserrat font-extrabold text-muted-foreground uppercase tracking-[0.2em]">
+            Listening on <span className="text-accent">{providerLabel}</span>
+          </span>
+        </div>
+        {track.url && (
+          <a
+            href={track.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted-foreground hover:text-accent transition-colors"
+            aria-label="Open in music app"
+          >
+            <ExternalLink className="h-4 w-4" />
+          </a>
+        )}
       </div>
 
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-5">
         {track.artworkUrl && (
-          <div className="relative w-16 h-16 shrink-0 overflow-hidden rounded-lg bg-gray-100">
+          <div className="relative w-20 h-20 shrink-0 overflow-hidden rounded-2xl bg-muted shadow-xl group-hover:scale-105 transition-transform duration-500">
             <Image
               src={track.artworkUrl}
               alt={`${track.album || track.name} cover`}
               fill
-              sizes="64px"
+              sizes="80px"
               className="object-cover"
               priority={false}
             />
+            {isPlaying && (
+               <div className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-[2px]">
+                  <div className="flex gap-1 items-end h-6">
+                     <div className="w-1 bg-white animate-bounce" style={{ animationDuration: '0.6s' }} />
+                     <div className="w-1 bg-white animate-bounce" style={{ animationDuration: '0.8s' }} />
+                     <div className="w-1 bg-white animate-bounce" style={{ animationDuration: '0.7s' }} />
+                  </div>
+               </div>
+            )}
           </div>
         )}
 
-        <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-gray-900 truncate">{track.name}</h3>
-          <p className="text-sm text-gray-600 truncate">{track.artist}</p>
-          {track.album && <p className="text-xs text-gray-500 truncate">{track.album}</p>}
-        </div>
-
-        <div className="flex items-center space-x-2">
-          {track.previewUrl && (
-            <button
-              onClick={togglePlayback}
-              className="bg-green-500 hover:bg-green-600 text-white rounded-full p-3 transition-colors"
-              aria-label={isPlaying ? 'Pause' : 'Play preview'}
-            >
-              {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 ml-0.5" />}
-            </button>
-          )}
-
-          {track.url && (
-            <a
-              href={track.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full p-3 transition-colors"
-              aria-label="Open in music app"
-            >
-              <ExternalLink className="h-4 w-4" />
-            </a>
+        <div className="flex-1 min-w-0 text-left">
+          <h3 className="font-montserrat font-bold text-foreground text-lg truncate group-hover:text-accent transition-colors leading-tight">
+            {track.name}
+          </h3>
+          <p className="text-sm text-muted-foreground truncate font-medium">{track.artist}</p>
+          {track.album && (
+            <p className="text-[10px] font-montserrat font-bold uppercase tracking-widest text-muted-foreground/50 truncate mt-1">
+              {track.album}
+            </p>
           )}
         </div>
+
+        {track.previewUrl && (
+          <button
+            onClick={togglePlayback}
+            className="shrink-0 bg-accent hover:scale-110 active:scale-95 text-accent-foreground rounded-full p-4 transition-all shadow-lg shadow-accent/20"
+            aria-label={isPlaying ? 'Pause' : 'Play preview'}
+          >
+            {isPlaying ? <Pause className="h-5 w-5 fill-current" /> : <Play className="h-5 w-5 ml-0.5 fill-current" />}
+          </button>
+        )}
       </div>
 
       {track.previewUrl && (
-        <>
-          <div className="mt-4 bg-gray-200 rounded-full h-1">
+        <div className="mt-6 relative">
+          <div className="bg-muted rounded-full h-1 overflow-hidden">
             <div
-              className="bg-green-500 h-1 rounded-full transition-all duration-300"
+              className="bg-accent h-1 rounded-full transition-all duration-300 shadow-[0_0_8px_rgba(56,189,248,0.5)]"
               style={{ width: `${progress}%` }}
             />
           </div>
-
           <audio ref={audioRef} src={track.previewUrl} preload="metadata" />
-
-          {!track.previewUrl && (
-            <p className="text-xs text-gray-500 mt-2 text-center">
-              Preview not available for this track
-            </p>
-          )}
-        </>
+        </div>
       )}
     </div>
   );

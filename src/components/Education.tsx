@@ -2,124 +2,57 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { GraduationCap, X, HelpCircle } from 'lucide-react';
+import { GraduationCap, X, ChevronRight, Award, BookOpen, Users } from 'lucide-react';
+import { listEducationItems, type EducationItem } from '@/data/education';
 
-interface EducationItem {
-  id: string;
-  name: string;
-  shortName: string;
-  image: string;
-  courses?: string[];
-  activities?: string[];
-  awards?: string[];
-}
-
-const educationItems: EducationItem[] = [
-  {
-    id: 'ekhs',
-    name: 'East Kentwood High School',
-    shortName: 'East Kentwood',
-    image: '/assets/img/schools/ekhs-logo.png',
-    courses: [
-      'AP Computer Science',
-      'AP Statistics',
-      'AP Calculus BC',
-    ],
-    activities: [
-      'National Honor Society',
-      'National Art Honors Society',
-      'Symphony Orchestra',
-      'Junior Varsity Tennis',
-      'Tutoring (Math & Science)',
-    ],
-    awards: [
-      'National Qualifier & State Champion in C++ Programming in 2018',
-      'AP Scholar with Distinction',
-      'Bosch and Society of Automotive Engineers Scholarship',
-      'Chuck Karston Memorial Award',
-    ],
-  },
-  {
-    id: 'umich',
-    name: 'University of Michigan',
-    shortName: 'University of Michigan',
-    image: '/assets/img/schools/umich-logo.png',
-    courses: [
-      'EECS 481: Software Engineering',
-      'EECS 497: Human-Centered Software Design and Development',
-      'EECS 441: Mobile App Development for Entrepreneurs',
-      'EECS 493: User Interface Development',
-      'EECS 482: Operating Systems',
-      'EECS 485: Web Systems',
-      'EECS 388: Computer Security',
-      'EECS 281: Data Structures & Algorithms',
-    ],
-    activities: [
-      'EECS Course Grader',
-      'UVSA-Midwest',
-      'Vietnamese Student Association',
-      'HackBlue',
-      'Michigan Hackers',
-    ],
-    awards: [
-      'HAIL Scholarship',
-      'University Honors',
-      'Dean\'s List',
-    ],
-  },
-  {
-    id: 'stay-tuned',
-    name: 'Stay Tuned',
-    shortName: 'Stay Tuned',
-    image: '/assets/img/schools/stay-tuned.svg',
-  },
-];
+const items = listEducationItems();
 
 const Education = () => {
   const [selectedItem, setSelectedItem] = useState<EducationItem | null>(null);
 
   return (
-    <section id="education" className="py-20 bg-primary">
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-montserrat font-bold text-secondary uppercase flex items-center justify-center gap-4 mb-6">
-            <GraduationCap className="w-8 h-8" />
-            <span>Education</span>
-            <GraduationCap className="w-8 h-8" />
-          </h2>
-          <div className="flex items-center justify-center mb-8">
-            <div className="h-1 w-20 bg-secondary"></div>
-            <div className="mx-4">
-              <div className="w-4 h-4 bg-secondary"></div>
+    <section id="education" className="bg-background py-24 px-6 md:px-12 relative overflow-hidden">
+      <div className="absolute top-[20%] right-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div className="space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-montserrat font-bold uppercase tracking-widest">
+              <GraduationCap className="w-4 h-4" />
+              Education
             </div>
-            <div className="h-1 w-20 bg-secondary"></div>
+            <h2 className="text-4xl md:text-6xl font-montserrat font-extrabold tracking-tighter text-foreground">
+              Academic Journey
+            </h2>
           </div>
+          <p className="text-muted-foreground font-light text-lg max-w-md leading-relaxed">
+            A background rooted in computer science and engineering, with a focus on human-centered design and software quality.
+          </p>
         </div>
 
-        {/* Education Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {educationItems.filter(item => item.id !== 'stay-tuned').map((item) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {items.map((item) => (
             <div
               key={item.id}
-              className="project-item cursor-pointer group btn-animated"
+              className="group relative cursor-pointer space-y-4 overflow-hidden rounded-3xl border border-border bg-card p-1 shadow-sm transition-all duration-300 hover:shadow-2xl hover:border-accent/30 hover:-translate-y-1"
               onClick={() => setSelectedItem(item)}
             >
-              <div className="relative">
+              <div className="relative h-[300px] overflow-hidden rounded-2xl">
                 <Image
                   src={item.image}
                   alt={item.name}
-                  width={400}
-                  height={300}
-                  className="w-full h-64 object-cover rounded-lg"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
                   loading="lazy"
                 />
-                <div className="project-item-caption absolute inset-0 flex items-center justify-center rounded-lg">
-                  {item.id === 'stay-tuned' ? (
-                    <HelpCircle className="w-16 h-16 text-white" />
-                  ) : (
-                    <GraduationCap className="w-16 h-16 text-white" />
-                  )}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                <div className="absolute bottom-8 left-8 right-8 space-y-2">
+                  <h3 className="text-2xl md:text-3xl font-montserrat font-extrabold text-foreground">
+                    {item.shortName}
+                  </h3>
+                  <div className="flex items-center gap-2 text-accent text-xs font-montserrat font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all transform group-hover:translate-x-0 translate-x-[-10px]">
+                    View Details <ChevronRight className="w-4 h-4" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -127,96 +60,102 @@ const Education = () => {
         </div>
       </div>
 
-      {/* Modal */}
       {selectedItem && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay"
+          className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-8 modal-overlay"
           onClick={() => setSelectedItem(null)}
         >
           <div
-            className="bg-white rounded-lg max-w-4xl max-h-[90vh] overflow-y-auto"
+            className="bg-background rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-border relative"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Header */}
-            <div className="flex justify-end p-4 border-b">
+            <div className="sticky top-0 z-20 flex justify-end p-6 bg-background/80 backdrop-blur-md">
               <button
                 onClick={() => setSelectedItem(null)}
-                className="text-gray-500 hover:text-gray-700 btn-animated"
+                className="p-3 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
               >
                 <X className="w-6 h-6" />
               </button>
             </div>
 
-            {/* Modal Content */}
-            <div className="p-8 text-center">
-              <h2 className="text-3xl font-montserrat font-bold text-secondary uppercase mb-6">
-                {selectedItem.name}
-              </h2>
+            <div className="px-8 pb-12 md:px-16 md:pb-20">
+              <div className="flex flex-col md:flex-row gap-12 items-start">
+                <div className="md:w-3/5 space-y-12">
+                  <div className="space-y-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-montserrat font-bold uppercase tracking-widest">
+                      Academic Details
+                    </div>
+                    <h2 className="text-4xl md:text-5xl font-montserrat font-extrabold tracking-tighter text-foreground">
+                      {selectedItem.name}
+                    </h2>
+                  </div>
 
-              <div className="flex items-center justify-center mb-8">
-                <div className="h-1 w-20 bg-secondary"></div>
-                <div className="mx-4">
-                  <div className="w-4 h-4 bg-secondary"></div>
+                  <div className="space-y-10">
+                    {selectedItem.courses && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-montserrat font-bold text-foreground flex items-center gap-2">
+                          <BookOpen className="w-5 h-5 text-accent" />
+                          Relevant Courses
+                        </h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-muted-foreground">
+                          {selectedItem.courses.map((course, index) => (
+                            <div key={index} className="flex gap-2 text-sm">
+                              <span className="text-accent">&#8226;</span>
+                              {course}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {selectedItem.activities && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-montserrat font-bold text-foreground flex items-center gap-2">
+                          <Users className="w-5 h-5 text-accent" />
+                          Activities
+                        </h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-muted-foreground">
+                          {selectedItem.activities.map((activity, index) => (
+                            <div key={index} className="flex gap-2 text-sm">
+                              <span className="text-accent">&#8226;</span>
+                              {activity}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {selectedItem.awards && (
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-montserrat font-bold text-foreground flex items-center gap-2">
+                          <Award className="w-5 h-5 text-accent" />
+                          Awards
+                        </h3>
+                        <div className="grid grid-cols-1 gap-3 text-muted-foreground">
+                          {selectedItem.awards.map((award, index) => (
+                            <div key={index} className="flex gap-2 text-sm leading-relaxed">
+                              <span className="text-accent">&#8226;</span>
+                              {award}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div className="h-1 w-20 bg-secondary"></div>
+
+                <div className="md:w-2/5 w-full">
+                  <div className="rounded-2xl overflow-hidden border border-border shadow-2xl p-8 bg-card flex justify-center sticky top-24">
+                    <Image
+                      src={selectedItem.image}
+                      alt={selectedItem.name}
+                      width={300}
+                      height={300}
+                      className="w-full h-auto object-contain max-w-[240px]"
+                    />
+                  </div>
+                </div>
               </div>
-
-              <Image
-                src={selectedItem.id === 'stay-tuned' ? selectedItem.image : `/assets/img/schools/${selectedItem.id}.png`}
-                alt={selectedItem.name}
-                width={400}
-                height={300}
-                className="mx-auto mb-8 rounded-lg"
-              />
-
-              {selectedItem.id === 'stay-tuned' ? (
-                <p className="text-gray-700 text-lg leading-relaxed mb-8">
-                  TBA
-                </p>
-              ) : (
-                <div className="text-left max-w-3xl mx-auto space-y-6">
-                  {selectedItem.courses && (
-                    <div>
-                      <h3 className="text-xl font-montserrat font-bold text-secondary mb-4">
-                        Relevant Courses
-                      </h3>
-                      <ul className="space-y-1 text-gray-700">
-                        {selectedItem.courses.map((course, index) => (
-                          <li key={index}>{course}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {selectedItem.activities && (
-                    <div>
-                      <h3 className="text-xl font-montserrat font-bold text-secondary mb-4">
-                        Activities
-                      </h3>
-                      <ul className="space-y-1 text-gray-700">
-                        {selectedItem.activities.map((activity, index) => (
-                          <li key={index}>{activity}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {selectedItem.awards && (
-                    <div>
-                      <h3 className="text-xl font-montserrat font-bold text-secondary mb-4">
-                        Awards
-                      </h3>
-                      <ul className="space-y-1 text-gray-700">
-                        {selectedItem.awards.map((award, index) => (
-                          <li key={index}>{award}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              )}
-
-
             </div>
           </div>
         </div>
@@ -225,4 +164,4 @@ const Education = () => {
   );
 };
 
-export default Education; 
+export default Education;

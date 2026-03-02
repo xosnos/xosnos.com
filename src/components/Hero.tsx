@@ -1,56 +1,67 @@
 import Image from 'next/image';
-import { Sparkles, Rocket } from 'lucide-react';
+import { Sparkles, Rocket, ArrowDown } from 'lucide-react';
 import SpotifyPlayer from '@/components/SpotifyPlayer';
+import { heroContent } from '@/data/hero';
 
 const Hero = () => {
   return (
-    <header id="page-top" className="bg-primary text-gray-800 min-h-screen flex items-center text-center">
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
-          {/* Profile Image */}
-          <div className="mb-8">
-            <Image
-              src="/assets/img/profile.jpg"
-              alt="Steven Nguyen"
-              width={256}
-              height={256}
-              className="rounded-full mx-auto border-4 border-gray-800 shadow-lg btn-animated"
-              priority
-            />
-          </div>
+    <header id="page-top" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-accent/10 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
+      </div>
 
-          {/* Name */}
-          <h1
-            className="text-5xl md:text-6xl font-montserrat font-bold mb-4 text-gray-800 md:title-banner-effect"
-            data-text="Steven Nguyen"
-          >
-            Steven Nguyen
-          </h1>
-
-          {/* Divider */}
-          <div className="flex items-center justify-center mb-6">
-            <div className="h-1 w-20 bg-gray-800"></div>
-            <div className="mx-4">
-              <Sparkles className="w-8 h-8 text-gray-800" />
+      <div className="container mx-auto px-6 py-20 relative z-10">
+        <div className="max-w-5xl mx-auto flex flex-col items-center text-center">
+          <div className="mb-10 relative group">
+            <div className="absolute inset-0 bg-gradient-to-tr from-accent to-blue-600 rounded-full blur-md opacity-50 group-hover:opacity-80 transition-opacity duration-500" />
+            <div className="relative p-1 bg-gradient-to-tr from-accent to-blue-600 rounded-full">
+              <Image
+                src={heroContent.profileImage}
+                alt={heroContent.name}
+                width={180}
+                height={180}
+                className="rounded-full border-4 border-background bg-background shadow-2xl relative z-10"
+                priority
+              />
             </div>
-            <div className="h-1 w-20 bg-gray-800"></div>
+            <div className="absolute -bottom-2 -right-2 bg-background border border-border p-2 rounded-xl shadow-lg">
+              <Sparkles className="w-5 h-5 text-accent" />
+            </div>
           </div>
 
-          {/* Subtitle */}
-          <h2 className="text-2xl md:text-3xl font-light flex items-center justify-center gap-2 flex-wrap text-gray-800">
-            <Sparkles className="w-6 h-6" />
-            <span>Hello Universe</span>
-            <Rocket className="w-6 h-6" />
-          </h2>
-        </div>
+          <div className="space-y-4 mb-8 pb-2 md:pb-3">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-montserrat font-extrabold tracking-tighter leading-[1.15] title-banner-effect">
+              {heroContent.name}
+            </h1>
+            <div className="flex items-center justify-center gap-3 text-muted-foreground font-montserrat font-semibold tracking-[0.2em] uppercase text-sm md:text-base pt-0.5">
+              <span className="h-px w-8 bg-border" />
+              <span className="flex items-center gap-2">
+                {heroContent.role} <Rocket className="w-4 h-4 text-accent" />
+              </span>
+              <span className="h-px w-8 bg-border" />
+            </div>
+          </div>
 
-        {/* Now Playing */}
-        <div className="mt-12">
-          <SpotifyPlayer />
+          <p className="text-xl md:text-2xl text-muted-foreground font-light max-w-2xl mb-12 leading-relaxed">
+            Crafting <span className="text-foreground font-semibold">robust</span> and <span className="text-foreground font-semibold">accessible</span> digital experiences through code and design.
+          </p>
+
+          <div className="w-full max-w-md space-y-8">
+            <SpotifyPlayer />
+
+            <a
+              href={heroContent.ctaHref}
+              className="inline-flex items-center gap-2 text-sm font-montserrat font-bold uppercase tracking-widest text-muted-foreground hover:text-accent transition-colors group"
+            >
+              {heroContent.ctaLabel}
+              <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
+            </a>
+          </div>
         </div>
       </div>
     </header>
   );
 };
 
-export default Hero; 
+export default Hero;

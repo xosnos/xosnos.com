@@ -1,4 +1,4 @@
-import { BriefcaseBusiness, CalendarRange, MapPin } from 'lucide-react';
+import { CalendarRange, MapPin, Building2, ChevronRight } from 'lucide-react';
 import { listPublishedExperiences } from '@/data/experience';
 
 const Experience = async () => {
@@ -10,80 +10,93 @@ const Experience = async () => {
       : '';
 
   return (
-    <section id="experience" className="bg-primary py-20">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-montserrat font-bold uppercase flex items-center justify-center gap-4 mb-6 text-secondary">
-            <BriefcaseBusiness className="w-8 h-8" />
-            <span>Experience</span>
-            <BriefcaseBusiness className="w-8 h-8" />
-          </h2>
-          <div className="flex items-center justify-center mb-8">
-            <div className="h-1 w-20 bg-secondary"></div>
-            <div className="mx-4">
-              <div className="w-4 h-4 bg-secondary"></div>
-            </div>
-            <div className="h-1 w-20 bg-secondary"></div>
+    <section id="experience" className="bg-card py-24 px-6 md:px-12 relative overflow-hidden">
+      {/* Background Subtle Gradient */}
+      <div className="absolute bottom-[10%] left-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="text-center mb-16 space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-montserrat font-bold uppercase tracking-widest">
+            <Building2 className="w-4 h-4" />
+            Career
           </div>
+          <h2 className="text-4xl md:text-6xl font-montserrat font-extrabold tracking-tighter text-foreground">
+            Professional Experience
+          </h2>
+          <div className="w-12 h-1 bg-accent mx-auto rounded-full" />
         </div>
 
         {items.length === 0 ? (
-          <div className="max-w-3xl mx-auto text-center bg-white rounded-lg shadow-sm p-10 border border-gray-200">
-            <p className="text-gray-800 text-lg font-semibold">No experiences added yet.</p>
-            <p className="text-gray-700 mt-3">
-              Add entries in <code className="bg-primary px-2 py-1 rounded-sm border border-gray-200">src/data/experience.ts</code>{' '}
-              to populate this section.
-            </p>
+          <div className="max-w-2xl mx-auto text-center bg-background rounded-3xl border border-border p-12 shadow-sm">
+            <p className="text-muted-foreground text-lg italic">The journey is just beginning.</p>
           </div>
         ) : (
-          <div className="max-w-5xl mx-auto space-y-6">
+          <div className="space-y-8">
             {items.map((item) => (
               <div
                 key={item.id}
-                className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex flex-col gap-3"
+                className="group bg-background rounded-3xl border border-border/50 p-8 md:p-10 shadow-sm transition-all duration-300 hover:shadow-2xl hover:border-accent/20 hover:-translate-y-1"
               >
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div>
-                    <p className="text-sm uppercase tracking-wide text-gray-500">{item.organization}</p>
-                    <h3 className="text-2xl font-montserrat font-bold text-gray-900">{item.role}</h3>
+                <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-accent font-montserrat font-bold uppercase text-xs tracking-widest">
+                      <span className="px-2 py-0.5 rounded bg-accent/10 border border-accent/20">
+                        {item.organization}
+                      </span>
+                      <ChevronRight className="w-3 h-3 text-muted-foreground" />
+                      <span className="text-muted-foreground">{item.type}</span>
+                    </div>
+                    <h3 className="text-2xl md:text-3xl font-montserrat font-extrabold text-foreground group-hover:text-accent transition-colors">
+                      {item.role}
+                    </h3>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <CalendarRange className="w-4 h-4" />
-                    <span>
-                      {formatMonthYear(item.startDate)} – {item.endDate ? formatMonthYear(item.endDate) : 'Present'}
-                    </span>
+                  
+                  <div className="flex flex-col md:items-end gap-2 text-sm font-medium text-muted-foreground">
+                    <div className="flex items-center gap-2">
+                      <CalendarRange className="w-4 h-4" />
+                      <span>
+                        {formatMonthYear(item.startDate)} — {item.endDate ? formatMonthYear(item.endDate) : 'Present'}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4" />
+                      <span>{item.location || 'Remote / Hybrid'}</span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <MapPin className="w-4 h-4" />
-                  <span>{item.location || 'Remote / Hybrid'}</span>
-                  <span className="mx-2 text-gray-300">•</span>
-                  <span className="capitalize">{item.type}</span>
+                <div className="space-y-6 max-w-4xl">
+                  {item.description && (
+                    <p className="text-muted-foreground text-lg leading-relaxed font-light">
+                      {item.description}
+                    </p>
+                  )}
+
+                  {item.highlights && item.highlights.length > 0 && (
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {item.highlights.map((highlight, idx) => (
+                        <li key={idx} className="flex gap-3 text-foreground/80 text-sm leading-relaxed group-hover:text-foreground transition-colors">
+                          <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-accent mt-2" />
+                          {highlight}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
                   {item.link && (
-                    <>
-                      <span className="mx-2 text-gray-300">•</span>
+                    <div className="pt-4 border-t border-border/50">
                       <a
                         href={item.link}
-                        className="text-primary font-semibold hover:underline"
+                        className="inline-flex items-center gap-2 text-xs font-montserrat font-bold uppercase tracking-widest text-muted-foreground hover:text-accent transition-colors"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        View
+                        Company Website
+                        <ChevronRight className="w-3 h-3" />
                       </a>
-                    </>
+                    </div>
                   )}
                 </div>
-
-                {item.description && <p className="text-gray-700 leading-relaxed">{item.description}</p>}
-
-                {item.highlights && item.highlights.length > 0 && (
-                  <ul className="list-disc list-inside space-y-1 text-gray-700">
-                    {item.highlights.map((highlight, idx) => (
-                      <li key={idx}>{highlight}</li>
-                    ))}
-                  </ul>
-                )}
               </div>
             ))}
           </div>
@@ -94,4 +107,3 @@ const Experience = async () => {
 };
 
 export default Experience;
-
