@@ -1,16 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, FileDown } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { navItems } from '@/data/navigation';
 import { ThemeToggle } from '@/components/theme-toggle';
+import ResumeGate from '@/components/ResumeGate';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === '/';
 
@@ -89,6 +91,13 @@ const Navigation = () => {
                   </Link>
                 );
               })}
+              <button
+                onClick={() => setIsResumeOpen(true)}
+                className="inline-flex items-center gap-1.5 font-montserrat font-bold uppercase text-sm tracking-wider py-2 px-4 rounded-md transition-all duration-200 text-accent hover:text-accent/80"
+              >
+                <FileDown className="w-4 h-4" />
+                Resume
+              </button>
             </div>
 
             <ThemeToggle />
@@ -121,10 +130,22 @@ const Navigation = () => {
                   </Link>
                 );
               })}
+              <button
+                onClick={() => {
+                  setIsResumeOpen(true);
+                  setIsMenuOpen(false);
+                }}
+                className="flex items-center gap-2 font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded-md transition-colors text-accent hover:bg-accent/10"
+              >
+                <FileDown className="w-4 h-4" />
+                Resume
+              </button>
             </div>
           </div>
         )}
       </div>
+
+      <ResumeGate open={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
     </nav>
   );
 };
