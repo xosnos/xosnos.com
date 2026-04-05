@@ -62,91 +62,93 @@ const Navigation = () => {
     }`;
 
   return (
-    <nav className={navClasses}>
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <Link
-            href="/"
-            className="text-foreground font-montserrat font-bold text-xl uppercase tracking-wider transition-colors hover:text-accent"
-            onClick={() => isMenuOpen && setIsMenuOpen(false)}
-          >
-            @xosnos
-          </Link>
-
-          <div className="flex items-center space-x-4">
-            <div className="hidden lg:flex space-x-1">
-              {navItems.map((item) => {
-                const href = isHome ? `#${item.section}` : `/#${item.section}`;
-                const isActive = displayActiveSection === item.section;
-                return (
-                  <Link
-                    key={item.section}
-                    href={href}
-                    className={`font-montserrat font-bold uppercase text-sm tracking-wider py-2 px-4 rounded-md transition-all duration-200 ${isActive
-                      ? 'text-accent'
-                      : 'text-muted-foreground hover:text-foreground'
-                      }`}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
-              <button
-                onClick={() => setIsResumeOpen(true)}
-                className="inline-flex items-center gap-1.5 font-montserrat font-bold uppercase text-sm tracking-wider py-2 px-4 rounded-md transition-all duration-200 text-accent hover:text-accent/80"
-              >
-                <FileDown className="w-4 h-4" />
-                Resume
-              </button>
-            </div>
-
-            <ThemeToggle />
-
-            <button
-              className="lg:hidden p-2 rounded-md text-foreground hover:bg-muted transition-colors"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle navigation"
+    <>
+      <nav className={navClasses}>
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            <Link
+              href="/"
+              className="text-foreground font-montserrat font-bold text-xl uppercase tracking-wider transition-colors hover:text-accent"
+              onClick={() => isMenuOpen && setIsMenuOpen(false)}
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
+              @xosnos
+            </Link>
 
-        {isMenuOpen && (
-          <div className="lg:hidden bg-background/95 backdrop-blur-md border-t border-border">
-            <div className="flex flex-col p-4 space-y-2">
-              {navItems.map((item) => {
-                const href = isHome ? `#${item.section}` : `/#${item.section}`;
-                const isActive = displayActiveSection === item.section;
-                return (
-                  <Link
-                    key={item.section}
-                    href={href}
-                    className={`block font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded-md transition-colors ${isActive ? 'text-accent bg-accent/10' : 'text-foreground hover:bg-muted'
-                      }`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
+            <div className="flex items-center space-x-4">
+              <div className="hidden lg:flex space-x-1">
+                {navItems.map((item) => {
+                  const href = isHome ? `#${item.section}` : `/#${item.section}`;
+                  const isActive = displayActiveSection === item.section;
+                  return (
+                    <Link
+                      key={item.section}
+                      href={href}
+                      className={`font-montserrat font-bold uppercase text-sm tracking-wider py-2 px-4 rounded-md transition-all duration-200 ${isActive
+                        ? 'text-accent'
+                        : 'text-muted-foreground hover:text-foreground'
+                        }`}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
+                <button
+                  onClick={() => setIsResumeOpen(true)}
+                  className="inline-flex items-center gap-1.5 font-montserrat font-bold uppercase text-sm tracking-wider py-2 px-4 rounded-md transition-all duration-200 text-accent hover:text-accent/80"
+                >
+                  <FileDown className="w-4 h-4" />
+                  Resume
+                </button>
+              </div>
+
+              <ThemeToggle />
+
               <button
-                onClick={() => {
-                  setIsResumeOpen(true);
-                  setIsMenuOpen(false);
-                }}
-                className="flex items-center gap-2 font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded-md transition-colors text-accent hover:bg-accent/10"
+                className="lg:hidden p-2 rounded-md text-foreground hover:bg-muted transition-colors"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                aria-label="Toggle navigation"
               >
-                <FileDown className="w-4 h-4" />
-                Resume
+                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
             </div>
           </div>
-        )}
-      </div>
+
+          {isMenuOpen && (
+            <div className="lg:hidden bg-background/95 backdrop-blur-md border-t border-border">
+              <div className="flex flex-col p-4 space-y-2">
+                {navItems.map((item) => {
+                  const href = isHome ? `#${item.section}` : `/#${item.section}`;
+                  const isActive = displayActiveSection === item.section;
+                  return (
+                    <Link
+                      key={item.section}
+                      href={href}
+                      className={`block font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded-md transition-colors ${isActive ? 'text-accent bg-accent/10' : 'text-foreground hover:bg-muted'
+                        }`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
+                <button
+                  onClick={() => {
+                    setIsResumeOpen(true);
+                    setIsMenuOpen(false);
+                  }}
+                  className="flex items-center gap-2 font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded-md transition-colors text-accent hover:bg-accent/10"
+                >
+                  <FileDown className="w-4 h-4" />
+                  Resume
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </nav>
 
       <ResumeGate open={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
-    </nav>
+    </>
   );
 };
 
