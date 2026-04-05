@@ -62,6 +62,7 @@ const Navigation = () => {
     }`;
 
   return (
+    <>
     <nav className={navClasses}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
@@ -145,8 +146,9 @@ const Navigation = () => {
         )}
       </div>
 
-      <ResumeGate open={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
     </nav>
+    <ResumeGate open={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
+    </>
   );
 };
 
