@@ -1,8 +1,8 @@
 export const heroContent = {
   name: 'Steven Nguyen',
-  role: 'Software Engineer',
+  role: 'Software Engineer & Builder',
   tagline:
-    'Crafting **robust** and **accessible** digital experiences through code and design.',
+    'I ship **end-to-end** — from infrastructure to interface — and obsess over the people who use what I build.',
   ctaLabel: 'Explore My Work',
   ctaHref: '#projects',
   profileImage: '/assets/img/profile.jpg',
