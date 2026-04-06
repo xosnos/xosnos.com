@@ -7,43 +7,33 @@ A modern, responsive portfolio site built with Next.js 16, TypeScript, and Tailw
 - **Modern Framework**: Built with Next.js 16 and React 19
 - **Type Safety**: Full TypeScript implementation
 - **Responsive Design**: Mobile-first with Tailwind CSS
+- **Dark/Light Theme**: Toggle between themes via next-themes
 - **Optimized Performance**: Static generation and image optimization
 - **Now Playing**: Apple Music primary with Spotify fallback via `/api/music/now-playing`
 - **Projects & Education**: Interactive modals for deep dives
+- **Experience**: Work and volunteer history with published/unpublished filtering
 - **Skills**: Synced from GitHub README badges
+- **Resume Gate**: Token-based access for resume downloads
+- **Contact Form**: Email via Resend integration
+- **Analytics**: Vercel Analytics and Speed Insights
 - **Accessibility & SEO**: Semantic HTML, ARIA, and metadata
 
-## 📁 Project Structure
+## 📁 Architecture
 
-```text
-src/
-├── app/
-│   ├── layout.tsx          # Root layout with fonts and metadata
-│   ├── page.tsx            # Main page combining all sections
-│   └── globals.css         # Global styles and custom utilities
-├── components/
-│   ├── Navigation.tsx      # Fixed navigation bar with mobile menu
-│   ├── Hero.tsx           # Header section with profile image
-│   ├── Projects.tsx        # Projects grid with modal details
-│   ├── About.tsx          # About section with bio and photo
-│   ├── Education.tsx      # Education timeline with modal details
-│   ├── Skills.tsx         # Skills badges and technologies
-│   ├── Contact.tsx        # Contact section with email link
-│   └── Footer.tsx         # Footer with social links and credits
-public/
-└── assets/               # Migrated from old site
-    ├── img/             # Images and logos
-    └── fonts/           # Custom fonts (if any)
-```
+The app uses the **Next.js App Router** with a single-page layout. Section components (`Hero`, `Projects`, `Experience`, `Skills`, `Education`, `About`, `Contact`) are composed in `src/app/page.tsx`. Content is separated from presentation via typed data files in `src/data/`. Shared utilities for Apple Music, Spotify, GitHub README parsing, rate limiting, and resume tokens live in `src/lib/`. API routes under `src/app/api/` handle music now-playing, Spotify auth, skills fetching, and resume access.
 
 ## 🛠 Technologies Used
 
 - **Next.js 16** - React framework with App Router
 - **React 19** - Latest React version
 - **TypeScript** - Type safety and better development experience
-- **Tailwind CSS** - Utility-first CSS framework
+- **Tailwind CSS 4** - Utility-first CSS framework
 - **Lucide React** - Modern icon library
-- **Framer Motion** - Animation library (for future enhancements)
+- **next-themes** - Dark/light theme management
+- **googleapis** - Google API integrations
+- **Resend** - Transactional email service
+- **@vercel/analytics** - Web analytics
+- **@vercel/speed-insights** - Performance monitoring
 
 ## 🎨 Design System
 
@@ -70,7 +60,7 @@ public/
 ### Prerequisites
 
 - Node.js 20.9+ (Next.js 16 requirement)
-- npm or yarn
+- [Bun](https://bun.sh/) (package manager)
 
 ### Installation
 
@@ -84,13 +74,13 @@ cd xosnos.com
 1. Install dependencies:
 
 ```bash
-npm install
+bun install
 ```
 
 1. Start the development server:
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 1. Open [http://localhost:3000](http://localhost:3000) in your browser.
@@ -98,8 +88,8 @@ npm run dev
 ### Building for Production
 
 ```bash
-npm run build
-npm start
+bun run build
+bun start
 ```
 
 ## 📱 Responsive Breakpoints
@@ -112,18 +102,7 @@ npm start
 
 ### Adding New Projects
 
-Edit `src/components/Projects.tsx` and add to the `projectItems` array:
-
-```typescript
-{
-  id: 'project-id',
-  title: 'Project Name',
-  image: '/assets/img/projects/project.svg',
-  description: 'Project description...',
-  demoUrl: 'https://demo.com', // optional
-  repoUrl: 'https://github.com/user/repo', // optional
-}
-```
+Add an entry to the `projects` array in `src/data/projects.ts` and set `published: true` to show it on the site.
 
 ### Adding Experience
 
@@ -143,7 +122,7 @@ The main page renders sections in this sequence:
 
 ### Updating Skills
 
-Edit `src/components/Skills.tsx` and modify the `skillCategories` array.
+Skills are synced from GitHub README badges. To override or add manually, edit `src/components/Skills.tsx`.
 
 ### Changing Colors
 
