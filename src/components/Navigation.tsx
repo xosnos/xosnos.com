@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Menu, X, FileDown } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence } from 'motion/react';
 import { navItems } from '@/data/navigation';
 import { ThemeToggle } from '@/components/theme-toggle';
 import ResumeGate from '@/components/ResumeGate';
@@ -113,37 +114,57 @@ const Navigation = () => {
           </div>
         </div>
 
-        {isMenuOpen && (
-          <div className="lg:hidden bg-background/95 backdrop-blur-md border-t border-border">
-            <div className="flex flex-col p-4 space-y-2">
-              {navItems.map((item) => {
-                const href = isHome ? `#${item.section}` : `/#${item.section}`;
-                const isActive = displayActiveSection === item.section;
-                return (
-                  <Link
-                    key={item.section}
-                    href={href}
-                    className={`block font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded-md transition-colors ${isActive ? 'text-accent bg-accent/10' : 'text-foreground hover:bg-muted'
-                      }`}
-                    onClick={() => setIsMenuOpen(false)}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
+              className="lg:hidden bg-background/95 backdrop-blur-md border-t border-border overflow-hidden"
+            >
+              <div className="flex flex-col p-4 space-y-2">
+                {navItems.map((item, index) => {
+                  const href = isHome ? `#${item.section}` : `/#${item.section}`;
+                  const isActive = displayActiveSection === item.section;
+                  return (
+                    <motion.div
+                      key={item.section}
+                      initial={{ opacity: 0, x: -16 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.05 * index, duration: 0.2 }}
+                    >
+                      <Link
+                        href={href}
+                        className={`block font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded-md transition-colors ${isActive ? 'text-accent bg-accent/10' : 'text-foreground hover:bg-muted'
+                          }`}
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+                <motion.div
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.05 * navItems.length, duration: 0.2 }}
+                >
+                  <button
+                    onClick={() => {
+                      setIsResumeOpen(true);
+                      setIsMenuOpen(false);
+                    }}
+                    className="flex items-center gap-2 font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded-md transition-colors text-accent hover:bg-accent/10"
                   >
-                    {item.label}
-                  </Link>
-                );
-              })}
-              <button
-                onClick={() => {
-                  setIsResumeOpen(true);
-                  setIsMenuOpen(false);
-                }}
-                className="flex items-center gap-2 font-montserrat font-bold uppercase text-sm tracking-wider py-3 px-4 rounded-md transition-colors text-accent hover:bg-accent/10"
-              >
-                <FileDown className="w-4 h-4" />
-                Resume
-              </button>
-            </div>
-          </div>
-        )}
+                    <FileDown className="w-4 h-4" />
+                    Resume
+                  </button>
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
     </nav>
