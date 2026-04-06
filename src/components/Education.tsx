@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { GraduationCap, X, ChevronRight, Award, BookOpen, Users } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { fadeInUp, staggerContainer, viewportOnce } from '@/lib/animations';
 import { listEducationItems, type EducationItem } from '@/data/education';
 
 const items = listEducationItems();
@@ -16,7 +17,7 @@ const Education = () => {
       <div className="absolute top-[20%] right-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportOnce} className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div className="space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-montserrat font-bold uppercase tracking-widest">
               <GraduationCap className="w-4 h-4" />
@@ -29,12 +30,13 @@ const Education = () => {
           <p className="text-muted-foreground font-light text-lg max-w-md leading-relaxed">
             A background rooted in computer science and engineering, with a focus on human-centered design and software quality.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportOnce} className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {items.map((item) => (
-            <div
+            <motion.div
               key={item.id}
+              variants={fadeInUp}
               className="group relative cursor-pointer space-y-4 overflow-hidden rounded-3xl border border-border bg-card p-1 shadow-sm transition-all duration-300 hover:shadow-2xl hover:border-accent/30 hover:-translate-y-1"
               onClick={() => setSelectedItem(item)}
             >
@@ -56,9 +58,9 @@ const Education = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       <AnimatePresence>
