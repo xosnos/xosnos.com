@@ -1,5 +1,6 @@
 import { MapPin, ArrowUp, Github, Linkedin, Twitter, Globe } from 'lucide-react';
 import { footerContent } from '@/data/footer';
+import { ScrollReveal } from '@/components/ScrollReveal';
 
 const iconMap = {
   github: <Github className="w-5 h-5" />,
@@ -12,6 +13,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-background py-20 px-6 md:px-12 relative overflow-hidden border-t border-border/50">
+      <ScrollReveal variant="fadeIn">
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-8">
 
@@ -97,6 +99,7 @@ const Footer = () => {
           </a>
         </div>
       </div>
+      </ScrollReveal>
 
       <div className="fixed bottom-8 right-8 lg:hidden z-40">
         <a

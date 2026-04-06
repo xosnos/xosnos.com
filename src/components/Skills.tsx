@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { ExternalLink, Box, Terminal, Cpu } from 'lucide-react';
 import { fetchSkillsFromReadme, type SkillCategory } from '@/lib/github-readme';
+import { ScrollReveal } from '@/components/ScrollReveal';
 
 const Skills = async () => {
   let skillCategories: SkillCategory[] = [];
@@ -20,31 +21,33 @@ const Skills = async () => {
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-          <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-montserrat font-bold uppercase tracking-widest">
-              <Terminal className="w-4 h-4" />
-              Stack
+        <ScrollReveal>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-montserrat font-bold uppercase tracking-widest">
+                <Terminal className="w-4 h-4" />
+                Stack
+              </div>
+              <h2 className="text-4xl md:text-6xl font-montserrat font-extrabold tracking-tighter text-foreground">
+                Technical Arsenal
+              </h2>
             </div>
-            <h2 className="text-4xl md:text-6xl font-montserrat font-extrabold tracking-tighter text-foreground">
-              Technical Arsenal
-            </h2>
+            <div className="flex flex-col gap-4">
+               <p className="text-muted-foreground font-light text-lg max-w-md leading-relaxed">
+                Continuously evolving and mastering a diverse set of technologies to build efficient, scalable solutions.
+              </p>
+              <a
+                href="https://github.com/xosnos/xosnos/blob/main/README.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-xs font-montserrat font-bold uppercase tracking-widest text-muted-foreground hover:text-accent transition-colors group"
+              >
+                Fetched from GitHub README
+                <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
+            </div>
           </div>
-          <div className="flex flex-col gap-4">
-             <p className="text-muted-foreground font-light text-lg max-w-md leading-relaxed">
-              Continuously evolving and mastering a diverse set of technologies to build efficient, scalable solutions.
-            </p>
-            <a
-              href="https://github.com/xosnos/xosnos/blob/main/README.md"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-xs font-montserrat font-bold uppercase tracking-widest text-muted-foreground hover:text-accent transition-colors group"
-            >
-              Fetched from GitHub README
-              <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </a>
-          </div>
-        </div>
+        </ScrollReveal>
 
         {/* Skills Content */}
         {skillCategories.length === 0 ? (
@@ -57,8 +60,8 @@ const Skills = async () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {skillCategories.map((category, index) => (
+              <ScrollReveal key={index} variant="scaleIn">
               <div 
-                key={index} 
                 className="group p-8 rounded-3xl bg-card border border-border shadow-sm hover:shadow-2xl hover:border-accent/20 hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="space-y-6">
@@ -92,6 +95,7 @@ const Skills = async () => {
                   </div>
                 </div>
               </div>
+              </ScrollReveal>
             ))}
           </div>
         )}

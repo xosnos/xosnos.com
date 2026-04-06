@@ -1,5 +1,6 @@
 import { CalendarRange, MapPin, Building2, ChevronRight } from 'lucide-react';
 import { listPublishedExperiences } from '@/data/experience';
+import { ScrollReveal, ScrollRevealItem } from '@/components/ScrollReveal';
 
 const Experience = async () => {
   const items = listPublishedExperiences();
@@ -15,16 +16,18 @@ const Experience = async () => {
       <div className="absolute bottom-[10%] left-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-montserrat font-bold uppercase tracking-widest">
-            <Building2 className="w-4 h-4" />
-            Career
+        <ScrollReveal>
+          <div className="text-center mb-16 space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-montserrat font-bold uppercase tracking-widest">
+              <Building2 className="w-4 h-4" />
+              Career
+            </div>
+            <h2 className="text-4xl md:text-6xl font-montserrat font-extrabold tracking-tighter text-foreground">
+              Professional Experience
+            </h2>
+            <div className="w-12 h-1 bg-accent mx-auto rounded-full" />
           </div>
-          <h2 className="text-4xl md:text-6xl font-montserrat font-extrabold tracking-tighter text-foreground">
-            Professional Experience
-          </h2>
-          <div className="w-12 h-1 bg-accent mx-auto rounded-full" />
-        </div>
+        </ScrollReveal>
 
         {items.length === 0 ? (
           <div className="max-w-2xl mx-auto text-center bg-background rounded-3xl border border-border p-12 shadow-sm">
@@ -33,8 +36,8 @@ const Experience = async () => {
         ) : (
           <div className="space-y-8">
             {items.map((item) => (
+              <ScrollRevealItem key={item.id}>
               <div
-                key={item.id}
                 className="group bg-background rounded-3xl border border-border/50 p-8 md:p-10 shadow-sm transition-all duration-300 hover:shadow-2xl hover:border-accent/20 hover:-translate-y-1"
               >
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
@@ -98,6 +101,7 @@ const Experience = async () => {
                   )}
                 </div>
               </div>
+              </ScrollRevealItem>
             ))}
           </div>
         )}
