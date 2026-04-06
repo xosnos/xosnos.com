@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { FileDown, Mail, User, Loader2, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface ResumeGateProps {
   open: boolean;
@@ -49,17 +50,25 @@ export default function ResumeGate({ open, onClose }: ResumeGateProps) {
     }
   };
 
-  if (!open) return null;
-
   return (
-    <div
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm"
-      onClick={onClose}
-    >
-      <div
-        className="w-full max-w-md mx-4 bg-card/95 backdrop-blur-md rounded-3xl p-6 border border-border/50 shadow-2xl space-y-4"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm"
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            className="w-full max-w-md mx-4 bg-card/95 backdrop-blur-md rounded-3xl p-6 border border-border/50 shadow-2xl space-y-4"
+            onClick={(e) => e.stopPropagation()}
+          >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <FileDown className="w-4 h-4 text-accent" />
@@ -140,7 +149,9 @@ export default function ResumeGate({ open, onClose }: ResumeGateProps) {
             </p>
           </form>
         )}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

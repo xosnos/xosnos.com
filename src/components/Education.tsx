@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { GraduationCap, X, ChevronRight, Award, BookOpen, Users } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { listEducationItems, type EducationItem } from '@/data/education';
 
 const items = listEducationItems();
@@ -60,15 +61,24 @@ const Education = () => {
         </div>
       </div>
 
-      {selectedItem && (
-        <div
-          className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-8 modal-overlay"
-          onClick={() => setSelectedItem(null)}
-        >
-          <div
-            className="bg-background rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-border relative"
-            onClick={(e) => e.stopPropagation()}
+      <AnimatePresence>
+        {selectedItem && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-8 modal-overlay"
+            onClick={() => setSelectedItem(null)}
           >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              className="bg-background rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-border relative"
+              onClick={(e) => e.stopPropagation()}
+            >
             <div className="sticky top-0 z-20 flex justify-end p-6 bg-background/80 backdrop-blur-md">
               <button
                 onClick={() => setSelectedItem(null)}
@@ -157,9 +167,10 @@ const Education = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
