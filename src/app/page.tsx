@@ -7,10 +7,11 @@ import Projects from '@/components/Projects';
 import Skills from '@/components/Skills';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import PageTransition from '@/components/PageTransition';
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <PageTransition className="min-h-screen">
       <Navigation />
       <main className="pt-16 lg:pt-0">
         <Hero />
@@ -22,6 +23,6 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
-    </div>
+    </PageTransition>
   );
 }
