@@ -14,7 +14,7 @@ const Projects = () => {
 
   return (
     <section id="projects" className="bg-background py-24 px-6 md:px-12 relative overflow-hidden">
-      <div className="absolute top-[20%] right-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-[20%] right-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[80px] md:blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportOnce} className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
