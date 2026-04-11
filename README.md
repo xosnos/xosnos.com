@@ -10,6 +10,7 @@ A modern, responsive portfolio site built with Next.js 16, TypeScript, and Tailw
 - **Dark/Light Theme**: Toggle between themes via next-themes
 - **Optimized Performance**: Static generation and image optimization
 - **Now Playing**: Apple Music primary with Spotify fallback via `/api/music/now-playing`
+- **Animations**: Scroll-reveal, page transitions, staggered entrances, and modal animations via Motion (Framer Motion)
 - **Projects & Education**: Interactive modals for deep dives
 - **Experience**: Work and volunteer history with published/unpublished filtering
 - **Skills**: Synced from GitHub README badges
@@ -20,7 +21,7 @@ A modern, responsive portfolio site built with Next.js 16, TypeScript, and Tailw
 
 ## 📁 Architecture
 
-The app uses the **Next.js App Router** with a single-page layout. Section components (`Hero`, `Projects`, `Experience`, `Skills`, `Education`, `About`, `Contact`) are composed in `src/app/page.tsx`. Content is separated from presentation via typed data files in `src/data/`. Shared utilities for Apple Music, Spotify, GitHub README parsing, rate limiting, and resume tokens live in `src/lib/`. API routes under `src/app/api/` handle music now-playing, Spotify auth, skills fetching, and resume access.
+The app uses the **Next.js App Router** with a single-page layout. Section components (`Hero`, `Projects`, `Experience`, `Skills`, `Education`, `About`, `Contact`) are composed in `src/app/page.tsx` and wrapped in a `PageTransition` fade-in. Scroll-reveal animations are applied per-section via reusable `ScrollReveal` and `ScrollRevealItem` wrappers backed by shared animation variants in `src/lib/animations.ts`. Content is separated from presentation via typed data files in `src/data/`. Shared utilities for Apple Music, Spotify, GitHub README parsing, rate limiting, and resume tokens live in `src/lib/`. API routes under `src/app/api/` handle music now-playing, Spotify auth, skills fetching, and resume access.
 
 ## 🛠 Technologies Used
 
@@ -28,6 +29,7 @@ The app uses the **Next.js App Router** with a single-page layout. Section compo
 - **React 19** - Latest React version
 - **TypeScript** - Type safety and better development experience
 - **Tailwind CSS 4** - Utility-first CSS framework
+- **Motion** (Framer Motion) - Scroll-reveal, page transitions, and interaction animations
 - **Lucide React** - Modern icon library
 - **next-themes** - Dark/light theme management
 - **googleapis** - Google API integrations
