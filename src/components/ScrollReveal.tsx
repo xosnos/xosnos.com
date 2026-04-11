@@ -44,7 +44,13 @@ export function ScrollReveal({ children, variant = 'fadeInUp', custom, className
 
 export function ScrollRevealItem({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <motion.div variants={fadeInUp} className={className}>
+    <motion.div
+      variants={fadeInUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportOnce}
+      className={className}
+    >
       {children}
     </motion.div>
   );
