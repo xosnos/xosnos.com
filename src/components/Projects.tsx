@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Code, X, ExternalLink, Github, Monitor } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { fadeInUp, staggerContainer, viewportOnce } from '@/lib/animations';
 import { listPublishedProjects, type ProjectItem } from '@/data/projects';
 
 const projectItems = listPublishedProjects();
@@ -12,10 +14,10 @@ const Projects = () => {
 
   return (
     <section id="projects" className="bg-background py-24 px-6 md:px-12 relative overflow-hidden">
-      <div className="absolute top-[20%] right-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-[20%] right-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[80px] md:blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportOnce} className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div className="space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-montserrat font-bold uppercase tracking-widest">
               <Code className="w-4 h-4" />
@@ -28,12 +30,13 @@ const Projects = () => {
           <p className="text-muted-foreground font-light text-lg max-w-md leading-relaxed">
             A showcase of applications, tools, and experiments I&apos;ve built to solve problems and explore new technologies.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportOnce} className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
           {projectItems.map((item) => (
-            <div
+            <motion.div
               key={item.id}
+              variants={fadeInUp}
               className="group cursor-pointer space-y-4"
               onClick={() => setSelectedItem(item)}
             >
@@ -68,20 +71,29 @@ const Projects = () => {
                   {item.description}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
-      {selectedItem && (
-        <div
-          className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-8 modal-overlay"
-          onClick={() => setSelectedItem(null)}
-        >
-          <div
-            className="bg-background rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-border relative"
-            onClick={(e) => e.stopPropagation()}
+      <AnimatePresence>
+        {selectedItem && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-8 modal-overlay"
+            onClick={() => setSelectedItem(null)}
           >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              className="bg-background rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-border relative"
+              onClick={(e) => e.stopPropagation()}
+            >
             <div className="sticky top-0 z-20 flex justify-end p-6 bg-background/80 backdrop-blur-md">
               <button
                 onClick={() => setSelectedItem(null)}
@@ -154,9 +166,10 @@ const Projects = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
