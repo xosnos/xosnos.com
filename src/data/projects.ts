@@ -17,7 +17,7 @@ const projectItems: ProjectItem[] = [
     description:
       'Terraces is your AI-Native career agent. Capture roles, tailor your materials with local-first AI, score them like an ATS, and keep your portfolio & analytics in sync—without leaving one workspace.',
     tags: ['Next.js', 'Supabase', 'AI', 'Tailwind'],
-    demoUrl: 'https://app.terraces.ai/',
+    demoUrl: 'https://www.terraces.ai/',
     published: true,
   },
   {
