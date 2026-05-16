@@ -8,14 +8,26 @@ import { ScrollReveal } from '@/components/ScrollReveal';
 
 const Skills = () => {
   const [skillCategories, setSkillCategories] = useState<SkillCategory[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('/api/skills')
-      .then((res) => res.json())
-      .then((data) => setSkillCategories(Array.isArray(data) ? data : []))
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setSkillCategories(Array.isArray(data) ? data : []);
+        setIsLoading(false);
+      })
       .catch((error) => {
         console.error('Failed to fetch skills:', error);
+        setFetchError(error instanceof Error ? error.message : 'Failed to fetch skills');
         setSkillCategories([]);
+        setIsLoading(false);
       });
   }, []);
 
@@ -56,11 +68,25 @@ const Skills = () => {
         </ScrollReveal>
 
         {/* Skills Content */}
-        {skillCategories.length === 0 ? (
+        {isLoading ? (
           <div className="text-center py-20 bg-card rounded-3xl border border-border shadow-sm">
              <div className="animate-pulse flex flex-col items-center gap-4">
                 <Cpu className="w-12 h-12 text-muted-foreground opacity-30" />
                 <p className="text-muted-foreground italic">Establishing secure connection to GitHub...</p>
+             </div>
+          </div>
+        ) : fetchError ? (
+          <div className="text-center py-20 bg-card rounded-3xl border border-border shadow-sm">
+             <div className="flex flex-col items-center gap-4">
+                <Cpu className="w-12 h-12 text-muted-foreground opacity-30" />
+                <p className="text-muted-foreground italic">{fetchError}</p>
+             </div>
+          </div>
+        ) : skillCategories.length === 0 ? (
+          <div className="text-center py-20 bg-card rounded-3xl border border-border shadow-sm">
+             <div className="flex flex-col items-center gap-4">
+                <Cpu className="w-12 h-12 text-muted-foreground opacity-30" />
+                <p className="text-muted-foreground italic">No skills found.</p>
              </div>
           </div>
         ) : (
