@@ -17,7 +17,7 @@ const mockSkills = [
 ];
 
 test('GitHub README skills load and display badges', async ({ page }) => {
-  await page.route('/api/skills', async (route) => {
+  await page.route('**/api/skills', async (route) => {
     await route.fulfill({
       status: 200,
       contentType: 'application/json',
@@ -25,8 +25,10 @@ test('GitHub README skills load and display badges', async ({ page }) => {
     });
   });
 
+  const responsePromise = page.waitForResponse('**/api/skills');
   await page.goto('/');
   await page.locator('#skills').scrollIntoViewIfNeeded();
+  await responsePromise;
 
   await expect(page.getByText('⌨️ Languages')).toBeVisible();
   await expect(page.getByText('🖥️ Frontend')).toBeVisible();

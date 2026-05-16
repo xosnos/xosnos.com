@@ -1,17 +1,23 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ExternalLink, Box, Terminal, Cpu } from 'lucide-react';
-import { fetchSkillsFromReadme, type SkillCategory } from '@/lib/github-readme';
+import { type SkillCategory } from '@/lib/github-readme';
 import { ScrollReveal } from '@/components/ScrollReveal';
 
-const Skills = async () => {
-  let skillCategories: SkillCategory[] = [];
+const Skills = () => {
+  const [skillCategories, setSkillCategories] = useState<SkillCategory[]>([]);
 
-  try {
-    skillCategories = await fetchSkillsFromReadme();
-  } catch (error) {
-    console.error('Failed to fetch skills from GitHub README:', error);
-    skillCategories = [];
-  }
+  useEffect(() => {
+    fetch('/api/skills')
+      .then((res) => res.json())
+      .then((data) => setSkillCategories(Array.isArray(data) ? data : []))
+      .catch((error) => {
+        console.error('Failed to fetch skills:', error);
+        setSkillCategories([]);
+      });
+  }, []);
 
   return (
     <section id="skills" className="bg-background py-24 px-6 md:px-12 relative overflow-hidden">
