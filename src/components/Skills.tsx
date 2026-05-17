@@ -1,17 +1,35 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ExternalLink, Box, Terminal, Cpu } from 'lucide-react';
-import { fetchSkillsFromReadme, type SkillCategory } from '@/lib/github-readme';
+import { type SkillCategory } from '@/lib/github-readme';
 import { ScrollReveal } from '@/components/ScrollReveal';
 
-const Skills = async () => {
-  let skillCategories: SkillCategory[] = [];
+const Skills = () => {
+  const [skillCategories, setSkillCategories] = useState<SkillCategory[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
-  try {
-    skillCategories = await fetchSkillsFromReadme();
-  } catch (error) {
-    console.error('Failed to fetch skills from GitHub README:', error);
-    skillCategories = [];
-  }
+  useEffect(() => {
+    fetch('/api/skills')
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setSkillCategories(Array.isArray(data) ? data : []);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error('Failed to fetch skills:', error);
+        setFetchError(error instanceof Error ? error.message : 'Failed to fetch skills');
+        setSkillCategories([]);
+        setIsLoading(false);
+      });
+  }, []);
 
   return (
     <section id="skills" className="bg-background py-24 px-6 md:px-12 relative overflow-hidden">
@@ -50,11 +68,25 @@ const Skills = async () => {
         </ScrollReveal>
 
         {/* Skills Content */}
-        {skillCategories.length === 0 ? (
+        {isLoading ? (
           <div className="text-center py-20 bg-card rounded-3xl border border-border shadow-sm">
              <div className="animate-pulse flex flex-col items-center gap-4">
                 <Cpu className="w-12 h-12 text-muted-foreground opacity-30" />
                 <p className="text-muted-foreground italic">Establishing secure connection to GitHub...</p>
+             </div>
+          </div>
+        ) : fetchError ? (
+          <div className="text-center py-20 bg-card rounded-3xl border border-border shadow-sm">
+             <div className="flex flex-col items-center gap-4">
+                <Cpu className="w-12 h-12 text-muted-foreground opacity-30" />
+                <p className="text-muted-foreground italic">{fetchError}</p>
+             </div>
+          </div>
+        ) : skillCategories.length === 0 ? (
+          <div className="text-center py-20 bg-card rounded-3xl border border-border shadow-sm">
+             <div className="flex flex-col items-center gap-4">
+                <Cpu className="w-12 h-12 text-muted-foreground opacity-30" />
+                <p className="text-muted-foreground italic">No skills found.</p>
              </div>
           </div>
         ) : (
