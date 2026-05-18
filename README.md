@@ -10,6 +10,7 @@ A modern, responsive portfolio site built with Next.js 16, TypeScript, and Tailw
 - **Dark/Light Theme**: Toggle between themes via next-themes
 - **Optimized Performance**: Static generation and image optimization
 - **Now Playing**: Apple Music primary with Spotify fallback via `/api/music/now-playing`
+- **AI Assistant**: Floating chat widget powered by Google Gemini that streams answers about Steven's experience, projects, and skills via `/api/chat`
 - **Animations**: Scroll-reveal, page transitions, staggered entrances, and modal animations via Motion (Framer Motion)
 - **Projects & Education**: Interactive modals for deep dives
 - **Experience**: Work and volunteer history with published/unpublished filtering
@@ -86,6 +87,16 @@ bun run dev
 ```
 
 1. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Environment Variables
+
+Add to `.env.local`:
+
+```bash
+# Required for the AI Assistant chat widget. Without it, the widget renders
+# but responds with a friendly "not configured" notice.
+GEMINI_API_KEY=your_google_ai_studio_key
+```
 
 ### Building for Production
 
